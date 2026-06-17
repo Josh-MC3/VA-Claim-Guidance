@@ -1,0 +1,2723 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The Beginner's Guide to Claude AI: From Zero to Power User</title>
+<meta name="description" content="A complete, friendly guide to using Claude AI for absolute beginners — what it is, how to start, real prompt examples, and a full feature catalog. No tech background needed.">
+<meta name="keywords" content="Claude AI, beginner guide, AI for beginners, how to use Claude, prompt examples, AI tutorial">
+<meta property="og:title" content="The Beginner's Guide to Claude AI: From Zero to Power User">
+<meta property="og:description" content="Never used AI before? Start here. A complete, jargon-free guide to Claude AI with real examples you can copy and use today.">
+<meta property="og:type" content="website">
+<style>
+/* ============================================
+   DESIGN TOKENS
+   ============================================ */
+:root {
+  /* Light mode palette */
+  --bg: #FBFAF8;
+  --bg-elevated: #FFFFFF;
+  --bg-soft: #F3F1ED;
+  --ink: #1C2541;
+  --ink-soft: #4A5470;
+  --ink-faint: #7B8499;
+  --line: #E4E1D9;
+  --accent: #2C5F8A;
+  --accent-soft: #DCE9F2;
+  --accent-strong: #1D4566;
+  --warm: #C97B4A;
+  --warm-soft: #F6E7DB;
+  --good: #3D7A5C;
+  --good-soft: #DEEFE4;
+  --warn: #B8722E;
+  --warn-soft: #F6E5D2;
+  --shadow-sm: 0 1px 2px rgba(28, 37, 65, 0.06), 0 1px 1px rgba(28, 37, 65, 0.04);
+  --shadow-md: 0 4px 16px rgba(28, 37, 65, 0.08), 0 2px 4px rgba(28, 37, 65, 0.04);
+  --shadow-lg: 0 12px 32px rgba(28, 37, 65, 0.12), 0 4px 8px rgba(28, 37, 65, 0.05);
+  --radius-sm: 10px;
+  --radius-md: 16px;
+  --radius-lg: 24px;
+  --font-display: 'Sequel', 'Poppins', 'Segoe UI', system-ui, sans-serif;
+  --font-body: 'Inter', 'Segoe UI', system-ui, -apple-system, sans-serif;
+  --font-mono: 'SF Mono', 'Cascadia Code', Consolas, monospace;
+  --max-width: 1180px;
+  --transition: 0.2s ease;
+}
+
+[data-theme="dark"] {
+  --bg: #14181F;
+  --bg-elevated: #1B212B;
+  --bg-soft: #20262F;
+  --ink: #EDEFF3;
+  --ink-soft: #B7BECB;
+  --ink-faint: #7E8696;
+  --line: #2B323D;
+  --accent: #6FA8D8;
+  --accent-soft: #233346;
+  --accent-strong: #8FBEE6;
+  --warm: #E0A06B;
+  --warm-soft: #3A2C20;
+  --good: #6BBE93;
+  --good-soft: #1F3329;
+  --warn: #E0A859;
+  --warn-soft: #3A2E1C;
+  --shadow-sm: 0 1px 2px rgba(0,0,0,0.3);
+  --shadow-md: 0 4px 16px rgba(0,0,0,0.4);
+  --shadow-lg: 0 12px 32px rgba(0,0,0,0.5);
+}
+
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  *, *::before, *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+body {
+  margin: 0;
+  font-family: var(--font-body);
+  background: var(--bg);
+  color: var(--ink);
+  line-height: 1.65;
+  font-size: 17px;
+  -webkit-font-smoothing: antialiased;
+  transition: background var(--transition), color var(--transition);
+}
+
+h1, h2, h3, h4 {
+  font-family: var(--font-display);
+  font-weight: 700;
+  letter-spacing: -0.01em;
+  line-height: 1.15;
+  color: var(--ink);
+  margin: 0;
+}
+
+p { margin: 0 0 1em 0; }
+a { color: var(--accent); text-decoration: none; }
+a:hover { text-decoration: underline; }
+img { max-width: 100%; display: block; }
+
+:focus-visible {
+  outline: 3px solid var(--accent);
+  outline-offset: 2px;
+  border-radius: 4px;
+}
+
+button {
+  font-family: inherit;
+  cursor: pointer;
+  border: none;
+  background: none;
+}
+
+.container {
+  max-width: var(--max-width);
+  margin: 0 auto;
+  padding: 0 24px;
+}
+
+.visually-hidden {
+  position: absolute;
+  width: 1px; height: 1px;
+  overflow: hidden;
+  clip: rect(0,0,0,0);
+}
+
+.skip-link {
+  position: absolute;
+  left: -9999px;
+  top: 0;
+  background: var(--accent);
+  color: #fff;
+  padding: 10px 18px;
+  border-radius: 0 0 8px 0;
+  z-index: 1000;
+}
+.skip-link:focus {
+  left: 0;
+}
+
+/* ============================================
+   TOP BAR / NAV
+   ============================================ */
+.topbar {
+  position: sticky;
+  top: 0;
+  z-index: 500;
+  background: var(--bg-elevated);
+  border-bottom: 1px solid var(--line);
+  transition: background var(--transition), border-color var(--transition);
+}
+.topbar-inner {
+  max-width: 1620px;
+  margin: 0 auto;
+  padding: 0 20px;
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  height: 64px;
+}
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 1.05rem;
+  color: var(--ink);
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+.brand-mark {
+  width: 30px;
+  height: 30px;
+  border-radius: 9px;
+  background: linear-gradient(135deg, var(--accent), var(--accent-strong));
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+.brand-mark svg { width: 16px; height: 16px; }
+
+.nav-scroll {
+  flex: 1;
+  overflow-x: auto;
+  scrollbar-width: none;
+}
+.nav-scroll::-webkit-scrollbar { display: none; }
+.nav-links {
+  display: flex;
+  gap: 0px;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  white-space: nowrap;
+}
+.nav-links a {
+  display: block;
+  padding: 8px 7px;
+  border-radius: 8px;
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--ink-soft);
+  transition: background var(--transition), color var(--transition);
+}
+.nav-links a:hover, .nav-links a:focus-visible {
+  background: var(--accent-soft);
+  color: var(--accent-strong);
+  text-decoration: none;
+}
+.nav-links a.active {
+  background: var(--accent);
+  color: #fff;
+}
+
+.topbar-actions {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-shrink: 0;
+}
+
+.icon-btn {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--ink-soft);
+  background: var(--bg-soft);
+  transition: background var(--transition), color var(--transition), transform var(--transition);
+}
+.icon-btn:hover { background: var(--accent-soft); color: var(--accent-strong); }
+.icon-btn svg { width: 19px; height: 19px; }
+
+/* Search */
+.search-wrap {
+  position: relative;
+}
+.search-input {
+  width: 150px;
+  padding: 9px 14px 9px 36px;
+  border-radius: 10px;
+  border: 1px solid var(--line);
+  background: var(--bg-soft);
+  color: var(--ink);
+  font-size: 0.9rem;
+  transition: width var(--transition), border-color var(--transition), background var(--transition);
+}
+.search-input:focus { width: 220px; border-color: var(--accent); background: var(--bg-elevated); }
+.search-icon {
+  position: absolute;
+  left: 11px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 16px; height: 16px;
+  color: var(--ink-faint);
+  pointer-events: none;
+}
+.search-results {
+  position: absolute;
+  top: calc(100% + 8px);
+  right: 0;
+  width: 340px;
+  max-height: 420px;
+  overflow-y: auto;
+  background: var(--bg-elevated);
+  border: 1px solid var(--line);
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-lg);
+  display: none;
+  z-index: 600;
+}
+.search-results.open { display: block; }
+.search-result-item {
+  display: block;
+  padding: 12px 16px;
+  border-bottom: 1px solid var(--line);
+  font-size: 0.88rem;
+}
+.search-result-item:last-child { border-bottom: none; }
+.search-result-item:hover { background: var(--accent-soft); text-decoration: none; }
+.search-result-item strong { display: block; color: var(--ink); font-size: 0.94rem; margin-bottom: 2px; }
+.search-result-item span { color: var(--ink-faint); }
+.search-empty { padding: 16px; color: var(--ink-faint); font-size: 0.88rem; text-align: center; }
+
+/* Mobile nav toggle */
+.nav-toggle { display: none; }
+
+@media (max-width: 1550px) {
+  .nav-scroll { display: none; }
+  .nav-toggle { display: flex; }
+  .search-input { width: 140px; }
+  .search-input:focus { width: 180px; }
+}
+
+@media (max-width: 560px) {
+  .brand-text { display: none; }
+  .topbar-inner { gap: 8px; padding: 0 14px; }
+  .search-input { width: 100%; }
+  .search-input:focus { width: 100%; }
+  .search-wrap { flex: 1; min-width: 0; }
+  .topbar-actions { gap: 6px; }
+}
+
+/* Mobile drawer */
+.mobile-drawer {
+  position: fixed;
+  inset: 0;
+  z-index: 900;
+  display: none;
+}
+.mobile-drawer.open { display: block; }
+.mobile-drawer-backdrop {
+  position: absolute;
+  inset: 0;
+  background: rgba(20,24,31,0.45);
+}
+.mobile-drawer-panel {
+  position: absolute;
+  top: 0; right: 0;
+  width: 78%;
+  max-width: 320px;
+  height: 100%;
+  background: var(--bg-elevated);
+  padding: 24px;
+  overflow-y: auto;
+  box-shadow: var(--shadow-lg);
+}
+.mobile-drawer-panel h3 { font-size: 1rem; margin-bottom: 16px; }
+.mobile-drawer-panel .nav-links { flex-direction: column; }
+.mobile-drawer-panel .nav-links a { padding: 12px 14px; font-size: 1rem; }
+.mobile-drawer-close {
+  width: 36px; height: 36px;
+  border-radius: 50%;
+  background: var(--bg-soft);
+  display: flex; align-items: center; justify-content: center;
+  margin-bottom: 18px;
+  color: var(--ink-soft);
+}
+
+/* ============================================
+   LAYOUT: main + progress rail
+   ============================================ */
+.page-layout {
+  display: grid;
+  grid-template-columns: 1fr 220px;
+  gap: 0;
+  max-width: var(--max-width);
+  margin: 0 auto;
+}
+.main-col { min-width: 0; }
+.progress-rail {
+  position: sticky;
+  top: 84px;
+  align-self: start;
+  height: fit-content;
+  padding: 28px 0 28px 28px;
+}
+.progress-rail-inner {
+  border-left: 2px solid var(--line);
+  padding-left: 18px;
+}
+.progress-rail-title {
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--ink-faint);
+  margin-bottom: 14px;
+}
+.progress-item {
+  display: block;
+  font-size: 0.85rem;
+  color: var(--ink-faint);
+  padding: 6px 0;
+  position: relative;
+  transition: color var(--transition);
+}
+.progress-item::before {
+  content: '';
+  position: absolute;
+  left: -21px;
+  top: 13px;
+  width: 7px; height: 7px;
+  border-radius: 50%;
+  background: var(--line);
+  transition: background var(--transition), transform var(--transition);
+}
+.progress-item.active {
+  color: var(--accent-strong);
+  font-weight: 600;
+}
+.progress-item.active::before {
+  background: var(--accent);
+  transform: scale(1.3);
+}
+.progress-item:hover { color: var(--accent-strong); text-decoration: none; }
+.progress-bar-track {
+  height: 4px;
+  background: var(--line);
+  border-radius: 4px;
+  margin-top: 16px;
+  overflow: hidden;
+}
+.progress-bar-fill {
+  height: 100%;
+  width: 0%;
+  background: linear-gradient(90deg, var(--accent), var(--warm));
+  transition: width 0.15s ease;
+}
+.progress-pct {
+  font-size: 0.75rem;
+  color: var(--ink-faint);
+  margin-top: 8px;
+}
+
+@media (max-width: 1080px) {
+  .page-layout { grid-template-columns: 1fr; }
+  .progress-rail { display: none; }
+}
+
+/* Mobile bottom progress bar (replaces rail) */
+.mobile-progress-bar {
+  display: none;
+  position: fixed;
+  bottom: 0; left: 0; right: 0;
+  height: 4px;
+  background: var(--line);
+  z-index: 700;
+}
+.mobile-progress-bar-fill {
+  height: 100%;
+  width: 0%;
+  background: linear-gradient(90deg, var(--accent), var(--warm));
+  transition: width 0.15s ease;
+}
+@media (max-width: 1080px) {
+  .mobile-progress-bar { display: block; }
+}
+
+main { display: block; padding: 0 24px; }
+
+/* ============================================
+   SECTION SCAFFOLDING
+   ============================================ */
+.section {
+  padding: 72px 0;
+  border-bottom: 1px solid var(--line);
+  scroll-margin-top: 80px;
+}
+.section:last-of-type { border-bottom: none; }
+.section-eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 0.78rem;
+  font-weight: 700;
+  letter-spacing: 0.07em;
+  text-transform: uppercase;
+  color: var(--accent);
+  background: var(--accent-soft);
+  padding: 6px 14px;
+  border-radius: 100px;
+  margin-bottom: 18px;
+}
+.section-title {
+  font-size: clamp(1.7rem, 4vw, 2.5rem);
+  margin-bottom: 14px;
+  max-width: 760px;
+}
+.section-lede {
+  font-size: 1.12rem;
+  color: var(--ink-soft);
+  max-width: 700px;
+  margin-bottom: 36px;
+}
+.reading-time {
+  font-size: 0.85rem;
+  color: var(--ink-faint);
+  margin-bottom: 8px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+.reading-time svg { width: 14px; height: 14px; }
+
+/* ============================================
+   CARDS
+   ============================================ */
+.card {
+  background: var(--bg-elevated);
+  border: 1px solid var(--line);
+  border-radius: var(--radius-md);
+  padding: 24px;
+  box-shadow: var(--shadow-sm);
+  transition: box-shadow var(--transition), transform var(--transition), border-color var(--transition);
+}
+.card:hover { box-shadow: var(--shadow-md); transform: translateY(-2px); }
+
+.callout {
+  border-radius: var(--radius-md);
+  padding: 20px 24px;
+  border: 1px solid var(--line);
+  display: flex;
+  gap: 14px;
+  align-items: flex-start;
+  margin: 20px 0;
+}
+.callout svg { width: 22px; height: 22px; flex-shrink: 0; margin-top: 2px; }
+.callout-warn { background: var(--warn-soft); border-color: transparent; }
+.callout-warn svg { color: var(--warn); }
+.callout-good { background: var(--good-soft); border-color: transparent; }
+.callout-good svg { color: var(--good); }
+.callout-info { background: var(--accent-soft); border-color: transparent; }
+.callout-info svg { color: var(--accent-strong); }
+.callout h4 { font-size: 1rem; margin-bottom: 4px; }
+.callout p { margin-bottom: 0; color: var(--ink-soft); font-size: 0.95rem; }
+
+.analogy-box {
+  background: linear-gradient(135deg, var(--accent-soft), var(--bg-soft));
+  border-radius: var(--radius-lg);
+  padding: 32px;
+  margin: 28px 0;
+  border: 1px solid var(--line);
+  position: relative;
+}
+.analogy-box::before {
+  content: '"';
+  font-family: var(--font-display);
+  position: absolute;
+  top: 8px;
+  left: 24px;
+  font-size: 4rem;
+  color: var(--accent);
+  opacity: 0.18;
+  line-height: 1;
+}
+.analogy-box p {
+  font-size: 1.15rem;
+  font-style: italic;
+  color: var(--ink);
+  margin: 0;
+  position: relative;
+  z-index: 1;
+}
+.analogy-label {
+  font-size: 0.78rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--accent-strong);
+  margin-bottom: 10px;
+  display: block;
+}
+
+/* Difficulty badges */
+.badge {
+  display: inline-flex;
+  align-items: center;
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.03em;
+  padding: 4px 10px;
+  border-radius: 100px;
+  text-transform: uppercase;
+}
+.badge-beginner { background: var(--good-soft); color: var(--good); }
+.badge-intermediate { background: var(--warn-soft); color: var(--warn); }
+.badge-advanced { background: var(--warm-soft); color: var(--warm); }
+
+/* Buttons */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 12px 22px;
+  border-radius: 100px;
+  font-weight: 700;
+  font-size: 0.95rem;
+  transition: transform var(--transition), box-shadow var(--transition), background var(--transition);
+}
+.btn-primary {
+  background: var(--accent);
+  color: #fff;
+  box-shadow: var(--shadow-sm);
+}
+.btn-primary:hover { background: var(--accent-strong); transform: translateY(-1px); box-shadow: var(--shadow-md); text-decoration: none; }
+.btn-ghost {
+  background: var(--bg-soft);
+  color: var(--ink);
+  border: 1px solid var(--line);
+}
+.btn-ghost:hover { background: var(--accent-soft); text-decoration: none; }
+
+/* Copy button + prompt blocks */
+.prompt-block {
+  background: var(--bg-soft);
+  border: 1px solid var(--line);
+  border-radius: var(--radius-sm);
+  padding: 16px 50px 16px 18px;
+  position: relative;
+  font-size: 0.95rem;
+  color: var(--ink);
+  margin: 10px 0;
+  font-family: var(--font-body);
+}
+.prompt-block.bad { border-left: 4px solid var(--warm); }
+.prompt-block.good { border-left: 4px solid var(--good); }
+.copy-btn {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  width: 32px;
+  height: 32px;
+  border-radius: 8px;
+  background: var(--bg-elevated);
+  border: 1px solid var(--line);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--ink-soft);
+  transition: background var(--transition), color var(--transition);
+}
+.copy-btn:hover { background: var(--accent-soft); color: var(--accent-strong); }
+.copy-btn svg { width: 15px; height: 15px; }
+.copy-btn.copied { background: var(--good-soft); color: var(--good); }
+.prompt-label {
+  font-size: 0.72rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  display: block;
+  margin-bottom: 6px;
+}
+.prompt-label.bad-label { color: var(--warm); }
+.prompt-label.good-label { color: var(--good); }
+
+/* Screenshot placeholder */
+.screenshot-placeholder {
+  background: var(--bg-soft);
+  border: 2px dashed var(--line);
+  border-radius: var(--radius-md);
+  padding: 48px 24px;
+  text-align: center;
+  color: var(--ink-faint);
+  font-size: 0.9rem;
+  margin: 20px 0;
+}
+.screenshot-placeholder svg { width: 32px; height: 32px; margin: 0 auto 10px; opacity: 0.5; }
+
+/* Grids */
+.grid {
+  display: grid;
+  gap: 20px;
+}
+.grid-2 { grid-template-columns: repeat(2, 1fr); }
+.grid-3 { grid-template-columns: repeat(3, 1fr); }
+.grid-4 { grid-template-columns: repeat(4, 1fr); }
+@media (max-width: 880px) {
+  .grid-2, .grid-3, .grid-4 { grid-template-columns: 1fr; }
+}
+@media (min-width: 881px) and (max-width: 1100px) {
+  .grid-3, .grid-4 { grid-template-columns: repeat(2, 1fr); }
+}
+
+/* Step list (numbered, used only for genuine sequences) */
+.step-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  counter-reset: step;
+}
+.step-item {
+  display: flex;
+  gap: 18px;
+  padding: 22px 0;
+  border-top: 1px solid var(--line);
+  counter-increment: step;
+}
+.step-item:first-child { border-top: none; }
+.step-num {
+  flex-shrink: 0;
+  width: 36px; height: 36px;
+  border-radius: 50%;
+  background: var(--accent-soft);
+  color: var(--accent-strong);
+  font-family: var(--font-display);
+  font-weight: 700;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 0.95rem;
+}
+.step-content h4 { font-size: 1.05rem; margin-bottom: 6px; }
+.step-content p { color: var(--ink-soft); margin-bottom: 10px; }
+
+/* ============================================
+   HERO
+   ============================================ */
+.hero {
+  padding: 76px 0 60px;
+  position: relative;
+  overflow: hidden;
+}
+.hero-bg {
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(circle at 15% 20%, var(--accent-soft) 0%, transparent 45%),
+    radial-gradient(circle at 85% 0%, var(--warm-soft) 0%, transparent 40%);
+  z-index: 0;
+  pointer-events: none;
+}
+.hero-inner {
+  position: relative;
+  z-index: 1;
+  display: grid;
+  grid-template-columns: 1.1fr 0.9fr;
+  gap: 48px;
+  align-items: center;
+}
+@media (max-width: 900px) {
+  .hero-inner { grid-template-columns: 1fr; }
+}
+.hero-kicker {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: var(--bg-elevated);
+  border: 1px solid var(--line);
+  padding: 7px 16px;
+  border-radius: 100px;
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--ink-soft);
+  margin-bottom: 22px;
+  box-shadow: var(--shadow-sm);
+}
+.hero-kicker .dot { width: 7px; height: 7px; border-radius: 50%; background: var(--good); }
+.hero h1 {
+  font-size: clamp(2.1rem, 5vw, 3.4rem);
+  margin-bottom: 20px;
+}
+.hero h1 .accent-word { color: var(--accent); }
+.hero-sub {
+  font-size: 1.2rem;
+  color: var(--ink-soft);
+  max-width: 540px;
+  margin-bottom: 30px;
+}
+.hero-ctas { display: flex; gap: 14px; flex-wrap: wrap; margin-bottom: 30px; }
+.hero-meta {
+  display: flex;
+  gap: 28px;
+  flex-wrap: wrap;
+  font-size: 0.88rem;
+  color: var(--ink-faint);
+}
+.hero-meta-item { display: flex; align-items: center; gap: 7px; }
+.hero-meta-item svg { width: 16px; height: 16px; color: var(--accent); }
+
+/* Conversation bubble signature element */
+.hero-visual {
+  background: var(--bg-elevated);
+  border: 1px solid var(--line);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-lg);
+  padding: 22px;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+.chat-row { display: flex; gap: 10px; max-width: 92%; }
+.chat-row.user { align-self: flex-end; flex-direction: row-reverse; }
+.chat-avatar {
+  width: 30px; height: 30px;
+  border-radius: 50%;
+  flex-shrink: 0;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 0.78rem;
+  font-weight: 700;
+  color: #fff;
+}
+.chat-avatar.claude { background: var(--accent); }
+.chat-avatar.user-av { background: var(--warm); }
+.chat-bubble {
+  background: var(--bg-soft);
+  border-radius: 14px;
+  padding: 11px 15px;
+  font-size: 0.88rem;
+  color: var(--ink);
+  line-height: 1.5;
+}
+.chat-row.user .chat-bubble { background: var(--accent-soft); }
+.chat-row.typing .chat-bubble { display: flex; gap: 4px; align-items: center; padding: 14px 16px; }
+.typing-dot { width: 6px; height: 6px; border-radius: 50%; background: var(--ink-faint); animation: typingPulse 1.2s infinite ease-in-out; }
+.typing-dot:nth-child(2) { animation-delay: 0.15s; }
+.typing-dot:nth-child(3) { animation-delay: 0.3s; }
+@keyframes typingPulse { 0%, 60%, 100% { opacity: 0.3; transform: scale(0.8); } 30% { opacity: 1; transform: scale(1); } }
+
+/* ============================================
+   FILTERS (feature catalog, scenarios)
+   ============================================ */
+.filter-bar {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-bottom: 30px;
+}
+.filter-chip {
+  padding: 9px 18px;
+  border-radius: 100px;
+  border: 1px solid var(--line);
+  background: var(--bg-elevated);
+  font-size: 0.88rem;
+  font-weight: 600;
+  color: var(--ink-soft);
+  transition: background var(--transition), color var(--transition), border-color var(--transition);
+}
+.filter-chip:hover { border-color: var(--accent); }
+.filter-chip.active {
+  background: var(--accent);
+  color: #fff;
+  border-color: var(--accent);
+}
+.filter-count {
+  font-size: 0.88rem;
+  color: var(--ink-faint);
+  margin-bottom: 18px;
+}
+
+/* Feature card */
+.feature-card {
+  background: var(--bg-elevated);
+  border: 1px solid var(--line);
+  border-radius: var(--radius-md);
+  padding: 22px;
+  box-shadow: var(--shadow-sm);
+  transition: box-shadow var(--transition), transform var(--transition);
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.feature-card:hover { box-shadow: var(--shadow-md); transform: translateY(-2px); }
+.feature-card-top { display: flex; justify-content: space-between; align-items: flex-start; gap: 10px; }
+.feature-icon {
+  width: 42px; height: 42px;
+  border-radius: 12px;
+  background: var(--accent-soft);
+  color: var(--accent-strong);
+  display: flex; align-items: center; justify-content: center;
+  flex-shrink: 0;
+}
+.feature-icon svg { width: 22px; height: 22px; }
+.feature-card h4 { font-size: 1.08rem; }
+.feature-card .what-it-does { color: var(--ink-soft); font-size: 0.93rem; }
+.feature-card .tags { display: flex; gap: 6px; flex-wrap: wrap; }
+.tag-chip {
+  font-size: 0.7rem;
+  font-weight: 600;
+  background: var(--bg-soft);
+  color: var(--ink-faint);
+  padding: 3px 9px;
+  border-radius: 100px;
+}
+.feature-toggle {
+  margin-top: 4px;
+  font-size: 0.85rem;
+  font-weight: 700;
+  color: var(--accent);
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  align-self: flex-start;
+}
+.feature-toggle svg { width: 14px; height: 14px; transition: transform var(--transition); }
+.feature-card.expanded .feature-toggle svg { transform: rotate(180deg); }
+.feature-detail {
+  display: none;
+  border-top: 1px solid var(--line);
+  padding-top: 14px;
+  margin-top: 4px;
+  font-size: 0.9rem;
+}
+.feature-card.expanded .feature-detail { display: block; }
+.feature-detail dt {
+  font-weight: 700;
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: var(--ink-faint);
+  margin-top: 12px;
+}
+.feature-detail dt:first-child { margin-top: 0; }
+.feature-detail dd { margin: 4px 0 0; color: var(--ink); }
+.no-results {
+  text-align: center;
+  padding: 50px 20px;
+  color: var(--ink-faint);
+}
+
+/* Scenario cards (section 4) */
+.scenario-group-title {
+  font-size: 1.3rem;
+  margin: 40px 0 16px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.scenario-group-title:first-child { margin-top: 0; }
+.scenario-card {
+  background: var(--bg-elevated);
+  border: 1px solid var(--line);
+  border-radius: var(--radius-sm);
+  padding: 16px 18px;
+  font-size: 0.92rem;
+  display: flex;
+  gap: 10px;
+  align-items: flex-start;
+}
+.scenario-card svg { width: 17px; height: 17px; color: var(--accent); flex-shrink: 0; margin-top: 2px; }
+
+/* ============================================
+   ACCORDION (FAQ)
+   ============================================ */
+.accordion-item {
+  border: 1px solid var(--line);
+  border-radius: var(--radius-sm);
+  margin-bottom: 10px;
+  overflow: hidden;
+  background: var(--bg-elevated);
+}
+.accordion-trigger {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 16px;
+  padding: 18px 20px;
+  text-align: left;
+  font-size: 1rem;
+  font-weight: 700;
+  color: var(--ink);
+  background: transparent;
+}
+.accordion-trigger:hover { background: var(--bg-soft); }
+.accordion-trigger svg {
+  width: 18px; height: 18px;
+  flex-shrink: 0;
+  color: var(--accent);
+  transition: transform var(--transition);
+}
+.accordion-item.open .accordion-trigger svg { transform: rotate(180deg); }
+.accordion-panel {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.25s ease;
+}
+.accordion-panel-inner {
+  padding: 0 20px 20px;
+  color: var(--ink-soft);
+  font-size: 0.95rem;
+}
+
+/* ============================================
+   WORKFLOW DIAGRAM
+   ============================================ */
+.workflow {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+  margin: 30px 0;
+}
+.workflow-step {
+  background: var(--bg-elevated);
+  border: 1px solid var(--line);
+  border-radius: var(--radius-sm);
+  padding: 14px 18px;
+  font-weight: 700;
+  font-size: 0.92rem;
+  color: var(--ink);
+  box-shadow: var(--shadow-sm);
+  flex: 1;
+  min-width: 110px;
+  text-align: center;
+}
+.workflow-arrow { color: var(--ink-faint); flex-shrink: 0; }
+.workflow-arrow svg { width: 18px; height: 18px; }
+@media (max-width: 760px) {
+  .workflow { flex-direction: column; align-items: stretch; }
+  .workflow-arrow svg { transform: rotate(90deg); }
+}
+
+/* ============================================
+   CHEAT SHEET CARDS
+   ============================================ */
+.cheat-card {
+  background: var(--bg-elevated);
+  border: 1px solid var(--line);
+  border-radius: var(--radius-md);
+  padding: 18px;
+  box-shadow: var(--shadow-sm);
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.cheat-num {
+  font-family: var(--font-display);
+  font-size: 0.78rem;
+  font-weight: 700;
+  color: var(--accent);
+}
+.cheat-card .prompt-block { margin: 0; }
+
+/* Print styles for cheat sheet */
+@media print {
+  .topbar, .progress-rail, .mobile-progress-bar, footer, .hero-visual, nav { display: none !important; }
+  .section { border-bottom: none; }
+}
+
+/* ============================================
+   TABLE OF CONTENTS GRID (intro)
+   ============================================ */
+.toc-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 14px;
+  margin: 28px 0 0;
+}
+@media (max-width: 700px) { .toc-grid { grid-template-columns: 1fr; } }
+.toc-link {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  background: var(--bg-elevated);
+  border: 1px solid var(--line);
+  border-radius: var(--radius-sm);
+  padding: 14px 16px;
+  font-weight: 600;
+  font-size: 0.92rem;
+  color: var(--ink);
+  transition: border-color var(--transition), background var(--transition);
+}
+.toc-link:hover { border-color: var(--accent); background: var(--accent-soft); text-decoration: none; }
+.toc-link .toc-num {
+  font-family: var(--font-display);
+  color: var(--accent);
+  font-weight: 700;
+  font-size: 0.85rem;
+  flex-shrink: 0;
+}
+
+/* ============================================
+   FOOTER
+   ============================================ */
+footer {
+  background: var(--bg-soft);
+  border-top: 1px solid var(--line);
+  padding: 48px 0 32px;
+  margin-top: 0;
+}
+.footer-inner {
+  max-width: var(--max-width);
+  margin: 0 auto;
+  padding: 0 24px;
+  text-align: center;
+}
+.footer-tagline {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 1.05rem;
+  margin-bottom: 10px;
+}
+.footer-note {
+  font-size: 0.88rem;
+  color: var(--ink-faint);
+  max-width: 560px;
+  margin: 0 auto 18px;
+}
+.back-to-top {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 0.85rem;
+  font-weight: 700;
+  color: var(--accent);
+}
+
+/* Highlight for search jump targets */
+.search-highlight {
+  animation: highlightPulse 1.6s ease;
+}
+@keyframes highlightPulse {
+  0% { box-shadow: 0 0 0 0 rgba(44,95,138,0.4); }
+  50% { box-shadow: 0 0 0 8px rgba(44,95,138,0.12); }
+  100% { box-shadow: 0 0 0 0 rgba(44,95,138,0); }
+}
+
+.text-block { max-width: 720px; }
+.text-block ul, .text-block ol { padding-left: 22px; }
+.text-block li { margin-bottom: 8px; }
+
+/* ============================================
+   TERMINAL / COMMAND DISPLAY (Claude Code section)
+   ============================================ */
+.terminal-block {
+  background: #1A1F2B;
+  border-radius: var(--radius-sm);
+  padding: 16px 50px 16px 18px;
+  position: relative;
+  font-family: var(--font-mono);
+  font-size: 0.88rem;
+  color: #E8EAF0;
+  margin: 10px 0;
+  overflow-x: auto;
+}
+.terminal-block .terminal-prompt { color: #6FA8D8; margin-right: 8px; }
+.terminal-block .copy-btn {
+  background: rgba(255,255,255,0.08);
+  border-color: rgba(255,255,255,0.15);
+  color: #C7CCD9;
+}
+.terminal-block .copy-btn:hover { background: rgba(255,255,255,0.16); color: #fff; }
+
+.command-table-wrap {
+  overflow-x: auto;
+  margin: 10px 0 24px;
+  border: 1px solid var(--line);
+  border-radius: var(--radius-md);
+}
+.command-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.92rem;
+  min-width: 560px;
+}
+.command-table th {
+  text-align: left;
+  background: var(--bg-soft);
+  padding: 12px 16px;
+  font-size: 0.75rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: var(--ink-faint);
+  border-bottom: 1px solid var(--line);
+}
+.command-table td {
+  padding: 13px 16px;
+  border-bottom: 1px solid var(--line);
+  color: var(--ink-soft);
+  vertical-align: top;
+}
+.command-table tr:last-child td { border-bottom: none; }
+.command-table code {
+  font-family: var(--font-mono);
+  background: var(--bg-soft);
+  color: var(--accent-strong);
+  padding: 2px 7px;
+  border-radius: 6px;
+  font-size: 0.88rem;
+  white-space: nowrap;
+}
+.command-table .cmd-name-cell { font-weight: 600; color: var(--ink); }
+</style>
+</head>
+<body>
+<a href="#main-content" class="skip-link">Skip to main content</a>
+
+<header class="topbar">
+  <div class="topbar-inner">
+    <a href="#hero" class="brand" aria-label="Beginner's Guide to Claude AI — home">
+      <span class="brand-mark">
+        <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M12 3l2.5 6.5L21 12l-6.5 2.5L12 21l-2.5-6.5L3 12l6.5-2.5L12 3z" fill="white"/></svg>
+      </span>
+      <span class="brand-text">Beginner's Guide to Claude</span>
+    </a>
+
+    <nav class="nav-scroll" aria-label="Main sections">
+      <ul class="nav-links" id="nav-links-desktop">
+        <li><a href="#what-is-claude">What is Claude?</a></li>
+        <li><a href="#getting-started">Get Started</a></li>
+        <li><a href="#features">Features</a></li>
+        <li><a href="#real-uses">Real Uses</a></li>
+        <li><a href="#prompting-guide">Prompting</a></li>
+        <li><a href="#travel">Travel</a></li>
+        <li><a href="#content-creation">Content</a></li>
+        <li><a href="#claude-code">Claude Code</a></li>
+        <li><a href="#mistakes">Mistakes</a></li>
+        <li><a href="#ethics-safety">Ethics</a></li>
+        <li><a href="#cheat-sheet">Cheat Sheet</a></li>
+      </ul>
+    </nav>
+
+    <div class="topbar-actions">
+      <div class="search-wrap">
+        <svg class="search-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="M21 21l-3.5-3.5"/></svg>
+        <input type="text" class="search-input" id="site-search" placeholder="Search features..." aria-label="Search this guide" autocomplete="off">
+        <div class="search-results" id="search-results" role="listbox" aria-label="Search suggestions"></div>
+      </div>
+      <button class="icon-btn" id="theme-toggle" aria-label="Toggle dark mode" aria-pressed="false">
+        <svg id="theme-icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"/></svg>
+        <svg id="theme-icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="display:none" aria-hidden="true"><path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"/></svg>
+      </button>
+      <button class="icon-btn nav-toggle" id="mobile-nav-toggle" aria-label="Open menu" aria-expanded="false">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M4 6h16M4 12h16M4 18h16"/></svg>
+      </button>
+    </div>
+  </div>
+</header>
+
+<div class="mobile-drawer" id="mobile-drawer">
+  <div class="mobile-drawer-backdrop" id="mobile-drawer-backdrop"></div>
+  <div class="mobile-drawer-panel">
+    <button class="mobile-drawer-close" id="mobile-drawer-close" aria-label="Close menu">
+      <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M18 6L6 18M6 6l12 12"/></svg>
+    </button>
+    <h3>Jump to a section</h3>
+    <nav aria-label="Main sections (mobile)">
+      <ul class="nav-links">
+        <li><a href="#what-is-claude">What is Claude?</a></li>
+        <li><a href="#getting-started">Getting Started</a></li>
+        <li><a href="#features">Claude's Features</a></li>
+        <li><a href="#real-uses">How Real People Use Claude</a></li>
+        <li><a href="#prompting-guide">Beginner Prompting Guide</a></li>
+        <li><a href="#travel">Travel with Claude</a></li>
+        <li><a href="#content-creation">Content Creation</a></li>
+        <li><a href="#claude-code">Claude Code (for power users)</a></li>
+        <li><a href="#mistakes">Common Mistakes</a></li>
+        <li><a href="#ethics-safety">AI Ethics &amp; Safety</a></li>
+        <li><a href="#cheat-sheet">Quick Start Cheat Sheet</a></li>
+      </ul>
+    </nav>
+  </div>
+</div>
+
+<div class="page-layout">
+<main id="main-content" class="main-col">
+
+  <section class="hero" id="hero">
+    <div class="hero-bg" aria-hidden="true"></div>
+    <div class="container hero-inner">
+      <div>
+        <span class="hero-kicker"><span class="dot"></span> No experience needed — really</span>
+        <h1>Never used AI before? <span class="accent-word">Start right here.</span></h1>
+        <p class="hero-sub">This is a complete, plain-language guide to Claude AI — written for people who've never typed a prompt in their life. No jargon. No assumptions. Just clear explanations and real examples you can copy and use today.</p>
+        <div class="hero-ctas">
+          <a href="#what-is-claude" class="btn btn-primary">
+            Start from the beginning
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+          </a>
+          <a href="#cheat-sheet" class="btn btn-ghost">Jump to the cheat sheet</a>
+        </div>
+        <div class="hero-meta">
+          <span class="hero-meta-item">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
+            About 40 minutes, full read
+          </span>
+          <span class="hero-meta-item">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 01-2 2H5a2 2 0 01-2-2V5a2 2 0 012-2h11"/></svg>
+            11 sections, skip around freely
+          </span>
+        </div>
+      </div>
+
+      <div class="hero-visual" aria-hidden="true">
+        <div class="chat-row user">
+          <div class="chat-avatar user-av">Y</div>
+          <div class="chat-bubble">I've never used AI before. Where do I even start?</div>
+        </div>
+        <div class="chat-row">
+          <div class="chat-avatar claude">C</div>
+          <div class="chat-bubble">Right here! Think of me like a knowledgeable assistant you can talk to in plain English. No special skills needed — just ask.</div>
+        </div>
+        <div class="chat-row user">
+          <div class="chat-avatar user-av">Y</div>
+          <div class="chat-bubble">Can you help me write an email and plan a trip?</div>
+        </div>
+        <div class="chat-row typing">
+          <div class="chat-avatar claude">C</div>
+          <div class="chat-bubble">
+            <span class="typing-dot"></span><span class="typing-dot"></span><span class="typing-dot"></span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+  <section class="section" id="what-is-claude">
+    <div class="container">
+      <span class="section-eyebrow">Section 1 of 11</span>
+      <h2 class="section-title">What is Claude, actually?</h2>
+      <p class="reading-time">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
+        3 minute read
+      </p>
+      <p class="section-lede">Before you type a single word to Claude, it helps to understand what it is, what it isn't, and what it's actually good at. No tech background required — we'll explain everything in plain terms.</p>
+
+      <div class="text-block">
+        <h3 style="font-size:1.3rem; margin-bottom:12px;">What is Claude?</h3>
+        <p>Claude is an AI assistant made by a company called Anthropic. You talk to it the same way you'd send a text message — you type what you want in plain English, and Claude writes back. There's nothing to install, no special commands to memorize, and no "computer language" to learn.</p>
+
+        <div class="analogy-box">
+          <span class="analogy-label">Think of it this way</span>
+          <p>Claude is like having an incredibly knowledgeable assistant on call 24/7 — one that can write, explain, brainstorm, and help you learn, simply because you asked it to.</p>
+        </div>
+
+        <h3 style="font-size:1.3rem; margin:32px 0 12px;">What is "AI," exactly?</h3>
+        <p>AI stands for "artificial intelligence." In Claude's case, it means a computer program that was trained on enormous amounts of text — books, articles, websites, conversations — so it learned how language works and how to reason through problems. It doesn't "look things up" the way a search engine does. Instead, it generates a response based on patterns it learned during training, the same way a person might answer a question using what they've read and learned over the years, not by flipping through a filing cabinet.</p>
+
+        <h3 style="font-size:1.3rem; margin:32px 0 12px;">How is Claude different from a search engine?</h3>
+        <p>A search engine like Google hands you a list of links and lets you do the reading. Claude reads the question itself and writes you a direct answer, explanation, or piece of writing — tailored to exactly what you asked, in the words you used to ask it. You can also have a back-and-forth conversation, asking follow-up questions the same way you would with a person, which isn't really how search engines work.</p>
+
+        <h3 style="font-size:1.3rem; margin:32px 0 12px;">How is Claude different from ChatGPT?</h3>
+        <p>Claude and ChatGPT are both AI assistants you talk to in plain English, made by different companies (Claude by Anthropic, ChatGPT by OpenAI). They can both chat, write, summarize, and help you think through problems. The differences mostly come down to writing style, how each one is built, and the specific features each company has added. If you've used ChatGPT before, most of what you already know about "talking to AI" carries over directly to Claude.</p>
+
+        <h3 style="font-size:1.3rem; margin:32px 0 12px;">What can Claude do?</h3>
+        <ul>
+          <li>Answer questions and explain topics in plain language</li>
+          <li>Write and edit emails, essays, resumes, and other documents</li>
+          <li>Read and summarize files you upload (PDFs, spreadsheets, Word docs)</li>
+          <li>Brainstorm ideas for almost anything — gifts, trips, business names, recipes</li>
+          <li>Help with coding, math, and step-by-step problem solving</li>
+          <li>Hold an ongoing conversation, remembering what you discussed earlier in the chat</li>
+        </ul>
+
+        <h3 style="font-size:1.3rem; margin:32px 0 12px;">What can't Claude do?</h3>
+        <ul>
+          <li>It can't guarantee that every fact it states is correct — more on this below</li>
+          <li>It doesn't have access to your accounts, bank, or other apps unless you've explicitly connected them</li>
+          <li>It can't browse the internet in real time unless that feature is turned on</li>
+          <li>It isn't a replacement for a licensed professional in medicine, law, or finance</li>
+        </ul>
+      </div>
+
+      <div class="callout callout-warn">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M10.29 3.86L1.82 18a2 2 0 001.71 3h16.94a2 2 0 001.71-3L13.71 3.86a2 2 0 00-3.42 0z"/><path d="M12 9v4M12 17h.01"/></svg>
+        <div>
+          <h4>A few important beginner warnings</h4>
+          <p>AI can make mistakes, including stating things confidently that aren't true. Always double-check anything important — dates, numbers, legal or medical claims, or anything you'll rely on. Claude is not a doctor, lawyer, or financial advisor, and shouldn't be treated as one.</p>
+        </div>
+      </div>
+
+      <h3 style="font-size:1.3rem; margin:36px 0 16px;">What's in this guide</h3>
+      <div class="toc-grid">
+        <a href="#getting-started" class="toc-link"><span class="toc-num">02</span> Getting Started</a>
+        <a href="#features" class="toc-link"><span class="toc-num">03</span> Claude's Features</a>
+        <a href="#real-uses" class="toc-link"><span class="toc-num">04</span> How Real People Use Claude</a>
+        <a href="#prompting-guide" class="toc-link"><span class="toc-num">05</span> Beginner Prompting Guide</a>
+        <a href="#travel" class="toc-link"><span class="toc-num">06</span> Travel with Claude</a>
+        <a href="#content-creation" class="toc-link"><span class="toc-num">07</span> Content Creation Masterclass</a>
+        <a href="#claude-code" class="toc-link"><span class="toc-num">08</span> Claude Code for Power Users</a>
+        <a href="#mistakes" class="toc-link"><span class="toc-num">09</span> Common Mistakes</a>
+        <a href="#ethics-safety" class="toc-link"><span class="toc-num">10</span> AI Ethics &amp; Safety</a>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="getting-started">
+    <div class="container">
+      <span class="section-eyebrow">Section 2 of 11</span>
+      <h2 class="section-title">Getting started, step by step</h2>
+      <p class="reading-time">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
+        4 minute read
+      </p>
+      <p class="section-lede">This is a genuine sequence — each step builds on the last — so we've numbered it. Follow along in order the first time through.</p>
+
+      <ol class="step-list">
+        <li class="step-item">
+          <div class="step-num">1</div>
+          <div class="step-content">
+            <h4>Create an account</h4>
+            <p>Go to Claude's website and sign up with an email address (or a Google account, if offered). You'll verify your email, and that's it — no credit card is required to get started on the free plan.</p>
+            <div class="screenshot-placeholder">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="M21 15l-5-5L5 21"/></svg>
+              Add screenshot here: the sign-up page
+            </div>
+          </div>
+        </li>
+        <li class="step-item">
+          <div class="step-num">2</div>
+          <div class="step-content">
+            <h4>Start a chat</h4>
+            <p>Once you're logged in, you'll see an empty text box, usually with a blinking cursor and a prompt like "How can I help you today?" That box is where everything happens. Click into it and start typing.</p>
+            <div class="screenshot-placeholder">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="M21 15l-5-5L5 21"/></svg>
+              Add screenshot here: a new, empty chat window
+            </div>
+          </div>
+        </li>
+        <li class="step-item">
+          <div class="step-num">3</div>
+          <div class="step-content">
+            <h4>Ask your first question</h4>
+            <p>Type a question the way you'd ask a person — for example, "Can you explain what compound interest is, like I'm a complete beginner?" Press Enter or tap the send button. Claude will respond in a few seconds.</p>
+            <div class="prompt-block good">
+              <span class="prompt-label good-label">Try typing this</span>
+              Can you explain what compound interest is, like I'm a complete beginner?
+              <button class="copy-btn" data-copy="Can you explain what compound interest is, like I'm a complete beginner?" aria-label="Copy this prompt">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"/></svg>
+              </button>
+            </div>
+          </div>
+        </li>
+        <li class="step-item">
+          <div class="step-num">4</div>
+          <div class="step-content">
+            <h4>Upload a file</h4>
+            <p>Look for a small paperclip or "+" icon near the text box. Click it to attach a file from your computer — a PDF, Word document, spreadsheet, or photo. Once it's attached, ask a question about it, like "Summarize the key points of this document."</p>
+            <div class="screenshot-placeholder">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="M21 15l-5-5L5 21"/></svg>
+              Add screenshot here: the file attachment icon
+            </div>
+          </div>
+        </li>
+        <li class="step-item">
+          <div class="step-num">5</div>
+          <div class="step-content">
+            <h4>Continue the conversation</h4>
+            <p>Claude remembers everything earlier in the same chat. You can ask follow-up questions like "Can you make that shorter?" or "What about for a beginner who's never invested before?" without repeating yourself.</p>
+          </div>
+        </li>
+        <li class="step-item">
+          <div class="step-num">6</div>
+          <div class="step-content">
+            <h4>Use "Projects" to stay organized (if available on your plan)</h4>
+            <p>Projects let you group related chats together and store background information once — like your resume, business details, or a writing style — so you don't have to retype it every time. If you see a "Projects" option in the sidebar, this is what it's for.</p>
+          </div>
+        </li>
+        <li class="step-item">
+          <div class="step-num">7</div>
+          <div class="step-content">
+            <h4>Organize your chats</h4>
+            <p>Past conversations are saved automatically and listed in a sidebar. You can rename a chat, search through old chats by keyword, or start a brand-new chat whenever you want to change topics — starting fresh often gets you cleaner answers than reusing one long chat for everything.</p>
+          </div>
+        </li>
+        <li class="step-item">
+          <div class="step-num">8</div>
+          <div class="step-content">
+            <h4>Save information for later</h4>
+            <p>If you mention recurring details — your job, your goals, your preferences — some versions of Claude can remember these across chats so you don't have to repeat yourself. Look for a "memory" or "preferences" setting if you want this turned on.</p>
+          </div>
+        </li>
+      </ol>
+    </div>
+  </section>
+
+  <section class="section" id="features">
+    <div class="container">
+      <span class="section-eyebrow">Section 3 of 11</span>
+      <h2 class="section-title">Claude's features, explained one by one</h2>
+      <p class="reading-time">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
+        8 minute read · 27 features
+      </p>
+      <p class="section-lede">Filter by what you're trying to do, or use the search bar in the top menu. Tap any card to see an example prompt and a real-world use case.</p>
+
+      <div class="filter-bar" id="feature-filters" role="group" aria-label="Filter features by category">
+        <button class="filter-chip active" data-filter="all">All Features</button>
+        <button class="filter-chip" data-filter="Personal">Personal</button>
+        <button class="filter-chip" data-filter="Work">Work</button>
+        <button class="filter-chip" data-filter="Education">Education</button>
+        <button class="filter-chip" data-filter="Creativity">Creativity</button>
+        <button class="filter-chip" data-filter="Travel">Travel</button>
+        <button class="filter-chip" data-filter="Productivity">Productivity</button>
+      </div>
+      <p class="filter-count" id="feature-count"></p>
+      <div class="grid grid-3" id="feature-grid"></div>
+    </div>
+  </section>
+
+  <section class="section" id="real-uses">
+    <div class="container">
+      <span class="section-eyebrow">Section 4 of 11</span>
+      <h2 class="section-title">How real people use Claude</h2>
+      <p class="reading-time">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
+        5 minute read
+      </p>
+      <p class="section-lede">These are generalized, common patterns — not specific people or private data. If you see yourself in one of these groups, it's a good place to start.</p>
+      <div id="scenario-container"></div>
+    </div>
+  </section>
+
+  <section class="section" id="prompting-guide">
+    <div class="container">
+      <span class="section-eyebrow">Section 5 of 11</span>
+      <h2 class="section-title">The beginner's prompting guide</h2>
+      <p class="reading-time">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
+        6 minute read
+      </p>
+      <p class="section-lede">A "prompt" is simply what you type to Claude — your question or instruction. The better your prompt, the better the answer. Here's how to write good ones, fast.</p>
+
+      <div class="text-block">
+        <h3 style="font-size:1.3rem; margin-bottom:14px;">Three versions of the same question</h3>
+        <p>Watch how the answer quality improves as the prompt gets more specific — this is the entire skill in one example.</p>
+
+        <div class="prompt-block bad">
+          <span class="prompt-label bad-label">Vague prompt</span>
+          Tell me about investing.
+          <button class="copy-btn" data-copy="Tell me about investing." aria-label="Copy this prompt">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"/></svg>
+          </button>
+        </div>
+        <div class="prompt-block good">
+          <span class="prompt-label good-label">Better prompt</span>
+          Explain investing to a beginner with examples.
+          <button class="copy-btn" data-copy="Explain investing to a beginner with examples." aria-label="Copy this prompt">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"/></svg>
+          </button>
+        </div>
+        <div class="prompt-block good" style="border-left-color: var(--accent);">
+          <span class="prompt-label good-label" style="color: var(--accent-strong);">Great prompt</span>
+          Teach me investing as if I know nothing. Use examples and give me a 30-day learning plan.
+          <button class="copy-btn" data-copy="Teach me investing as if I know nothing. Use examples and give me a 30-day learning plan." aria-label="Copy this prompt">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"/></svg>
+          </button>
+        </div>
+
+        <h3 style="font-size:1.3rem; margin:32px 0 14px;">The formula: Role + Task + Context + Format</h3>
+        <p>Most strong prompts include some combination of these four ingredients. You don't need all four every time, but the more you include, the more tailored your answer will be.</p>
+      </div>
+
+      <div class="grid grid-4" style="margin-bottom: 30px;">
+        <div class="card">
+          <h4 style="font-size:1rem; margin-bottom:6px;">Role</h4>
+          <p style="font-size:0.9rem; color:var(--ink-soft); margin:0;">Who should Claude "be"? e.g. "Act as a career coach"</p>
+        </div>
+        <div class="card">
+          <h4 style="font-size:1rem; margin-bottom:6px;">Task</h4>
+          <p style="font-size:0.9rem; color:var(--ink-soft); margin:0;">What do you actually want done? e.g. "Review my resume"</p>
+        </div>
+        <div class="card">
+          <h4 style="font-size:1rem; margin-bottom:6px;">Context</h4>
+          <p style="font-size:0.9rem; color:var(--ink-soft); margin:0;">Background Claude needs. e.g. "I'm applying for nursing jobs"</p>
+        </div>
+        <div class="card">
+          <h4 style="font-size:1rem; margin-bottom:6px;">Format</h4>
+          <p style="font-size:0.9rem; color:var(--ink-soft); margin:0;">How should the answer look? e.g. "As a bulleted list"</p>
+        </div>
+      </div>
+
+      <h3 style="font-size:1.3rem; margin:8px 0 16px;">30 beginner prompt templates</h3>
+      <p class="section-lede" style="margin-bottom:20px;">Copy any of these and swap in your own details.</p>
+      <div class="grid grid-3" id="template-grid"></div>
+    </div>
+  </section>
+
+  <section class="section" id="travel">
+    <div class="container">
+      <span class="section-eyebrow">Section 6 of 11 · Advanced</span>
+      <h2 class="section-title">Travel with Claude</h2>
+      <p class="reading-time">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
+        5 minute read
+      </p>
+      <p class="section-lede">This section goes a bit deeper, but we'll still keep it simple. Travel planning is one of the most popular uses for Claude — here's exactly what it can and can't do.</p>
+
+      <div class="text-block">
+        <h3 style="font-size:1.3rem; margin-bottom:14px;">What kind of trip planning can Claude help with?</h3>
+        <ul>
+          <li><strong>Building itineraries</strong> — day-by-day plans for any destination</li>
+          <li><strong>Multi-country trips</strong> — sequencing cities and countries efficiently</li>
+          <li><strong>Family travel</strong> — accounting for kids' ages, nap schedules, and stamina</li>
+          <li><strong>Solo travel</strong> — safety considerations, solo-friendly activities, and meeting people</li>
+          <li><strong>Budget travel</strong> — stretching a fixed amount across an entire trip</li>
+          <li><strong>Luxury travel</strong> — curated, high-end recommendations and pacing</li>
+        </ul>
+      </div>
+
+      <div class="callout callout-info">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4M12 8h.01"/></svg>
+        <div>
+          <h4>Important: Claude doesn't book flights or check live prices</h4>
+          <p>Claude can't search live flight prices, hold a seat, or complete a booking. What it <em>can</em> do is compare flight options you've already found, analyze itineraries, suggest cheaper travel dates in general terms, optimize multi-city routes, suggest nearby alternate airports, explain airline policies, and help you build a travel budget.</p>
+        </div>
+      </div>
+
+      <h3 style="font-size:1.3rem; margin:36px 0 16px;">A simple workflow: flights + Claude</h3>
+      <ol class="step-list">
+        <li class="step-item">
+          <div class="step-num">1</div>
+          <div class="step-content">
+            <h4>Find flights yourself first</h4>
+            <p>Use a site like Google Flights, Skyscanner, or the airline's own website to find a few real flight options with actual prices.</p>
+          </div>
+        </li>
+        <li class="step-item">
+          <div class="step-num">2</div>
+          <div class="step-content">
+            <h4>Paste the options into Claude</h4>
+            <p>Copy the flight details — airline, times, layovers, price — directly into your chat with Claude.</p>
+          </div>
+        </li>
+        <li class="step-item">
+          <div class="step-num">3</div>
+          <div class="step-content">
+            <h4>Ask Claude to compare them</h4>
+            <div class="prompt-block good">
+              <span class="prompt-label good-label">Try this</span>
+              Compare these flights based on total travel time, baggage fees, layovers, and overall value.
+              <button class="copy-btn" data-copy="Compare these flights based on total travel time, baggage fees, layovers, and overall value." aria-label="Copy this prompt">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"/></svg>
+              </button>
+            </div>
+          </div>
+        </li>
+      </ol>
+
+      <h3 style="font-size:1.3rem; margin:36px 0 16px;">Advanced travel prompts to try</h3>
+      <div class="grid grid-2" id="travel-prompt-grid"></div>
+    </div>
+  </section>
+
+  <section class="section" id="content-creation">
+    <div class="container">
+      <span class="section-eyebrow">Section 7 of 11</span>
+      <h2 class="section-title">Content creation masterclass</h2>
+      <p class="reading-time">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
+        7 minute read
+      </p>
+      <p class="section-lede">Whether it's a blog post, a LinkedIn update, or a sales email, most content creation with Claude follows the same basic path.</p>
+
+      <h3 style="font-size:1.3rem; margin-bottom:16px;">The workflow</h3>
+      <div class="workflow">
+        <div class="workflow-step">Idea</div>
+        <div class="workflow-arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 6l6 6-6 6"/></svg></div>
+        <div class="workflow-step">Research</div>
+        <div class="workflow-arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 6l6 6-6 6"/></svg></div>
+        <div class="workflow-step">Outline</div>
+        <div class="workflow-arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 6l6 6-6 6"/></svg></div>
+        <div class="workflow-step">Draft</div>
+        <div class="workflow-arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 6l6 6-6 6"/></svg></div>
+        <div class="workflow-step">Edit</div>
+        <div class="workflow-arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 6l6 6-6 6"/></svg></div>
+        <div class="workflow-step">Publish</div>
+      </div>
+
+      <div class="text-block">
+        <p>Claude is most useful in the middle of that chain — research, outlining, drafting, and editing — while the idea and the final publish decision usually stay with you.</p>
+
+        <h3 style="font-size:1.3rem; margin:30px 0 12px;">Refining what Claude gives you</h3>
+        <ul>
+          <li><strong>Ask for revisions directly:</strong> "Make this more casual" or "Cut this in half."</li>
+          <li><strong>Give it examples of your voice:</strong> Paste a piece you've written before and ask Claude to match that tone.</li>
+          <li><strong>Iterate instead of starting over:</strong> Build on the previous answer rather than re-explaining everything from scratch.</li>
+        </ul>
+      </div>
+
+      <h3 style="font-size:1.3rem; margin:30px 0 16px;">50 content prompts to copy</h3>
+      <div class="filter-bar" id="content-filters" role="group" aria-label="Filter content prompts by type">
+        <button class="filter-chip active" data-cfilter="all">All</button>
+        <button class="filter-chip" data-cfilter="Writing">Writing</button>
+        <button class="filter-chip" data-cfilter="Social">Social Media</button>
+        <button class="filter-chip" data-cfilter="Business">Business</button>
+      </div>
+      <div class="grid grid-3" id="content-prompt-grid"></div>
+    </div>
+  </section>
+
+  <section class="section" id="claude-code">
+    <div class="container">
+      <span class="section-eyebrow">Section 8 of 11 · A different product</span>
+      <h2 class="section-title">Claude Code, for when you're ready to go further</h2>
+      <p class="reading-time">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
+        6 minute read
+      </p>
+      <p class="section-lede">Everything so far in this guide happens in the Claude.ai chat window. Claude Code is a separate, more technical product built for writing and editing software. It's worth knowing about even if you never touch code yourself — but it isn't part of the regular chat interface, so we're covering it on its own.</p>
+
+      <div class="callout callout-info">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4M12 8h.01"/></svg>
+        <div>
+          <h4>This is a different product, not a hidden chat feature</h4>
+          <p>You won't find this inside claude.ai by typing a special character or digging through settings. Claude Code is installed separately — in a terminal, a code editor, or its own desktop app — and it requires a paid Claude plan (Pro, Max, Team, or Enterprise) or pay-as-you-go API access. It is not included with the free Claude.ai plan.</p>
+        </div>
+      </div>
+
+      <div class="text-block">
+        <h3 style="font-size:1.3rem; margin:28px 0 12px;">What is Claude Code?</h3>
+        <p>Claude Code is an AI coding assistant that works directly with your project's files. Instead of pasting code back and forth in a chat window, you point it at a real folder of code on your computer, and it can read every file, make edits across multiple files at once, run commands like tests or installers, and explain what it finds — all from plain-English instructions.</p>
+
+        <div class="analogy-box">
+          <span class="analogy-label">Think of it this way</span>
+          <p>If regular Claude chat is like emailing a smart consultant your code and waiting for notes back, Claude Code is like having that consultant sit down at your desk, open the actual project, and make the changes themselves while explaining each step.</p>
+        </div>
+
+        <h3 style="font-size:1.3rem; margin:32px 0 12px;">Who is this actually for?</h3>
+        <p>If you don't write code, you can likely skip this section entirely — everything else in this guide still applies to you. Claude Code is built for people who work in software: developers fixing bugs, automating repetitive coding tasks, or managing a real codebase. Some non-coders do use it for small, contained scripting tasks, but it has a steeper learning curve than the chat interface and assumes some comfort with concepts like files, folders, and the command line.</p>
+
+        <h3 style="font-size:1.3rem; margin:32px 0 12px;">Where does it run?</h3>
+        <ul>
+          <li><strong>Terminal (command line):</strong> the original and most flexible way to use it, on macOS, Windows, or Linux</li>
+          <li><strong>Code editor extensions:</strong> plugins for editors like VS Code and JetBrains IDEs (IntelliJ, PyCharm, WebStorm), showing changes inline as you work</li>
+          <li><strong>A standalone desktop app:</strong> for running it outside a terminal or editor, with visual diffs and the ability to run multiple sessions side by side</li>
+        </ul>
+
+        <h3 style="font-size:1.3rem; margin:32px 0 12px;">Getting started, in plain terms</h3>
+        <p>The exact install steps change as Anthropic updates the tool, so the official setup documentation is the most reliable source. In general terms, the process looks like this:</p>
+      </div>
+
+      <ol class="step-list">
+        <li class="step-item">
+          <div class="step-num">1</div>
+          <div class="step-content">
+            <h4>Make sure you have a qualifying Claude plan</h4>
+            <p>A Pro, Max, Team, or Enterprise subscription, or an Anthropic Console account billed by usage. The free claude.ai plan doesn't include Claude Code access.</p>
+          </div>
+        </li>
+        <li class="step-item">
+          <div class="step-num">2</div>
+          <div class="step-content">
+            <h4>Install it on your computer</h4>
+            <p>Anthropic provides a native installer for macOS, Windows, and Linux that doesn't require any other software. There's also an alternate install method via npm, a Node.js package manager, for people who already use that toolchain.</p>
+          </div>
+        </li>
+        <li class="step-item">
+          <div class="step-num">3</div>
+          <div class="step-content">
+            <h4>Open a project folder and log in</h4>
+            <p>You run a command inside the folder you want to work on. The first time, it opens your browser to log in with your Claude account — after that, it remembers you.</p>
+          </div>
+        </li>
+        <li class="step-item">
+          <div class="step-num">4</div>
+          <div class="step-content">
+            <h4>Start typing instructions in plain English</h4>
+            <p>Describe what you want changed, fixed, or built, the same way you'd talk to Claude in chat. It reads the relevant files, proposes changes, and — depending on your settings — either makes them automatically or asks for your approval first.</p>
+          </div>
+        </li>
+      </ol>
+
+      <h3 style="font-size:1.3rem; margin:36px 0 16px;">What are slash commands?</h3>
+      <div class="text-block">
+        <p>Slash commands are shortcuts you type inside a Claude Code session to control the tool itself, rather than instructions for Claude to reason about. They always start with a forward slash, like <code>/help</code>. Typing just <code>/</code> on its own line shows a filterable list of every command currently available to you.</p>
+      </div>
+
+      <div class="terminal-block">
+        <span class="terminal-prompt">&gt;</span>/help
+        <button class="copy-btn" data-copy="/help" aria-label="Copy this command">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"/></svg>
+        </button>
+      </div>
+
+      <div class="callout callout-warn">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M10.29 3.86L1.82 18a2 2 0 001.71 3h16.94a2 2 0 001.71-3L13.71 3.86a2 2 0 00-3.42 0z"/><path d="M12 9v4M12 17h.01"/></svg>
+        <div>
+          <h4>Availability may vary depending on your Claude subscription or interface</h4>
+          <p>Claude Code ships frequent updates, and exact commands can be renamed, added, or removed between versions. The list below covers commonly available built-in commands as a starting point — typing <code>/help</code> inside your own session is always the most accurate, up-to-date source for what you actually have.</p>
+        </div>
+      </div>
+
+      <div class="command-table-wrap">
+        <table class="command-table">
+          <thead>
+            <tr><th>Command</th><th>Purpose</th><th>Difficulty</th><th>Example</th></tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td class="cmd-name-cell"><code>/help</code></td>
+              <td>Lists the commands available in your current session</td>
+              <td><span class="badge badge-beginner">Beginner</span></td>
+              <td><code>/help</code></td>
+            </tr>
+            <tr>
+              <td class="cmd-name-cell"><code>/clear</code></td>
+              <td>Wipes the current conversation and starts a fresh session</td>
+              <td><span class="badge badge-beginner">Beginner</span></td>
+              <td><code>/clear</code></td>
+            </tr>
+            <tr>
+              <td class="cmd-name-cell"><code>/compact</code></td>
+              <td>Summarizes older parts of a long conversation to free up space, while keeping the important context</td>
+              <td><span class="badge badge-intermediate">Intermediate</span></td>
+              <td><code>/compact</code></td>
+            </tr>
+            <tr>
+              <td class="cmd-name-cell"><code>/model</code></td>
+              <td>Switches which Claude model handles the session — useful for balancing speed, cost, and capability</td>
+              <td><span class="badge badge-intermediate">Intermediate</span></td>
+              <td><code>/model</code></td>
+            </tr>
+            <tr>
+              <td class="cmd-name-cell"><code>/cost</code></td>
+              <td>Shows usage and cost information for your current session</td>
+              <td><span class="badge badge-intermediate">Intermediate</span></td>
+              <td><code>/cost</code></td>
+            </tr>
+            <tr>
+              <td class="cmd-name-cell"><code>/permissions</code></td>
+              <td>Reviews or adjusts what Claude Code is allowed to do without asking first, like running commands or editing files</td>
+              <td><span class="badge badge-advanced">Advanced</span></td>
+              <td><code>/permissions</code></td>
+            </tr>
+            <tr>
+              <td class="cmd-name-cell"><code>/resume</code></td>
+              <td>Picks back up a previous session instead of starting over</td>
+              <td><span class="badge badge-intermediate">Intermediate</span></td>
+              <td><code>/resume</code></td>
+            </tr>
+            <tr>
+              <td class="cmd-name-cell">Custom commands</td>
+              <td>Project-specific shortcuts that a team defines themselves, stored as files in the project</td>
+              <td><span class="badge badge-advanced">Advanced</span></td>
+              <td><code>/fix-issue 142</code></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="text-block">
+        <h3 style="font-size:1.3rem; margin:28px 0 12px;">A common mistake</h3>
+        <p>Typing a slash command into the regular Claude.ai chat box won't do anything special — it'll just be read as ordinary text, since slash commands only exist inside a Claude Code session. The two products share the same underlying Claude models, but the chat interface and the coding tool understand different sets of instructions.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="mistakes">
+    <div class="container">
+      <span class="section-eyebrow">Section 9 of 11</span>
+      <h2 class="section-title">Common mistakes beginners make</h2>
+      <p class="reading-time">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
+        3 minute read
+      </p>
+      <p class="section-lede">Every one of these is fixable in seconds once you know to watch for it.</p>
+
+      <div class="grid grid-2">
+        <div class="card">
+          <h4 style="margin-bottom:8px;">Being too vague</h4>
+          <p style="color:var(--ink-soft); margin:0;">"Help me with my résumé" gives Claude very little to work with. Add the job you're applying for, your background, and what's not working about the current draft.</p>
+        </div>
+        <div class="card">
+          <h4 style="margin-bottom:8px;">Trusting AI blindly</h4>
+          <p style="color:var(--ink-soft); margin:0;">Claude can sound confident and still be wrong. Treat answers as a strong first draft, not a final verdict — especially for facts, numbers, and anything high-stakes.</p>
+        </div>
+        <div class="card">
+          <h4 style="margin-bottom:8px;">Not providing context</h4>
+          <p style="color:var(--ink-soft); margin:0;">Claude doesn't know your situation unless you tell it. Mention your goals, constraints, and audience up front instead of expecting Claude to guess.</p>
+        </div>
+        <div class="card">
+          <h4 style="margin-bottom:8px;">Expecting a perfect answer on the first try</h4>
+          <p style="color:var(--ink-soft); margin:0;">The first response is a starting point. Treat the conversation like a real back-and-forth, not a vending machine.</p>
+        </div>
+        <div class="card">
+          <h4 style="margin-bottom:8px;">Forgetting to ask follow-up questions</h4>
+          <p style="color:var(--ink-soft); margin:0;">If something's unclear, too long, too short, or off-target, just say so. "Can you shorten this?" or "Explain that part more" works exactly the way it would with a person.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="ethics-safety">
+    <div class="container">
+      <span class="section-eyebrow">Section 10 of 11</span>
+      <h2 class="section-title">AI ethics &amp; safety, in plain terms</h2>
+      <p class="reading-time">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
+        4 minute read
+      </p>
+      <p class="section-lede">Using AI responsibly isn't complicated, but it's worth knowing these basics.</p>
+
+      <div class="grid grid-2">
+        <div class="callout callout-info" style="margin:0;">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0110 0v4"/></svg>
+          <div>
+            <h4>Privacy considerations</h4>
+            <p>Avoid pasting sensitive personal information — like full Social Security numbers, passwords, or someone else's private medical details — into any chat unless you fully understand how that data is stored and used.</p>
+          </div>
+        </div>
+        <div class="callout callout-warn" style="margin:0;">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M10.29 3.86L1.82 18a2 2 0 001.71 3h16.94a2 2 0 001.71-3L13.71 3.86a2 2 0 00-3.42 0z"/><path d="M12 9v4M12 17h.01"/></svg>
+          <div>
+            <h4>Sensitive information</h4>
+            <p>For medical, legal, or financial decisions, use Claude to understand your options and prepare questions — then confirm specifics with a qualified professional before acting.</p>
+          </div>
+        </div>
+        <div class="callout callout-good" style="margin:0;">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 01-2 2H5a2 2 0 01-2-2V5a2 2 0 012-2h11"/></svg>
+          <div>
+            <h4>Fact-checking</h4>
+            <p>Verify dates, statistics, names, and citations independently before using them somewhere that matters — a report, a school assignment, or a public post.</p>
+          </div>
+        </div>
+        <div class="callout callout-info" style="margin:0;">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 19.5A2.5 2.5 0 016.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 014 19.5v-15A2.5 2.5 0 016.5 2z"/></svg>
+          <div>
+            <h4>Copyright awareness</h4>
+            <p>Claude won't reproduce copyrighted text like full song lyrics or book passages, and you should be thoughtful about how AI-generated content is used commercially or published as your own.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="callout callout-good" style="margin-top:24px;">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 01-2 2H5a2 2 0 01-2-2V5a2 2 0 012-2h11"/></svg>
+        <div>
+          <h4>Responsible use, summed up</h4>
+          <p>Use Claude as a capable assistant, not an unquestionable authority. Stay curious, verify what matters, and keep a human in charge of the final decision.</p>
+        </div>
+      </div>
+
+      <h3 style="font-size:1.3rem; margin:36px 0 16px;">Frequently asked questions</h3>
+      <div id="faq-accordion"></div>
+    </div>
+  </section>
+
+  <section class="section" id="cheat-sheet">
+    <div class="container">
+      <span class="section-eyebrow">Section 11 of 11</span>
+      <h2 class="section-title">Quick start cheat sheet</h2>
+      <p class="reading-time">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
+        2 minute read · printable
+      </p>
+      <p class="section-lede">The 20 prompts every beginner should keep handy. Print this page, or just bookmark it.</p>
+      <div class="grid grid-4" id="cheat-grid"></div>
+      <div style="text-align:center; margin-top:32px;">
+        <button class="btn btn-ghost" onclick="window.print()">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9V2h12v7M6 18H4a2 2 0 01-2-2v-5a2 2 0 012-2h16a2 2 0 012 2v5a2 2 0 01-2 2h-2M6 14h12v8H6v-8z"/></svg>
+          Print this cheat sheet
+        </button>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<aside class="progress-rail" aria-label="Reading progress">
+  <div class="progress-rail-inner">
+    <p class="progress-rail-title">On this page</p>
+    <nav id="progress-nav"></nav>
+    <div class="progress-bar-track"><div class="progress-bar-fill" id="progress-fill"></div></div>
+    <p class="progress-pct" id="progress-pct">0% read</p>
+  </div>
+</aside>
+</div>
+
+<div class="mobile-progress-bar"><div class="mobile-progress-bar-fill" id="mobile-progress-fill"></div></div>
+
+<footer>
+  <div class="footer-inner">
+    <p class="footer-tagline">Built as a Beginner's Guide to Claude AI</p>
+    <p class="footer-note">This guide is independent, informational content meant to help new users get comfortable with AI. It is not official documentation — always check Claude's official site for the most current features and policies.</p>
+    <a href="#hero" class="back-to-top">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M12 19V5M5 12l7-7 7 7"/></svg>
+      Back to top
+    </a>
+  </div>
+</footer>
+
+<script>
+(function() {
+  "use strict";
+
+  /* ============================================
+     THEME TOGGLE (light/dark, persisted)
+     ============================================ */
+  var root = document.documentElement;
+  var themeToggle = document.getElementById('theme-toggle');
+  var sunIcon = document.getElementById('theme-icon-sun');
+  var moonIcon = document.getElementById('theme-icon-moon');
+
+  function applyTheme(theme) {
+    if (theme === 'dark') {
+      root.setAttribute('data-theme', 'dark');
+      sunIcon.style.display = 'none';
+      moonIcon.style.display = 'block';
+      themeToggle.setAttribute('aria-pressed', 'true');
+    } else {
+      root.removeAttribute('data-theme');
+      sunIcon.style.display = 'block';
+      moonIcon.style.display = 'none';
+      themeToggle.setAttribute('aria-pressed', 'false');
+    }
+  }
+
+  var savedTheme = null;
+  try { savedTheme = localStorage.getItem('claude-guide-theme'); } catch(e) {}
+  if (!savedTheme) {
+    savedTheme = (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) ? 'dark' : 'light';
+  }
+  applyTheme(savedTheme);
+
+  themeToggle.addEventListener('click', function() {
+    var current = root.getAttribute('data-theme') === 'dark' ? 'dark' : 'light';
+    var next = current === 'dark' ? 'light' : 'dark';
+    applyTheme(next);
+    try { localStorage.setItem('claude-guide-theme', next); } catch(e) {}
+  });
+
+  /* ============================================
+     MOBILE NAV DRAWER
+     ============================================ */
+  var drawer = document.getElementById('mobile-drawer');
+  var drawerToggle = document.getElementById('mobile-nav-toggle');
+  var drawerClose = document.getElementById('mobile-drawer-close');
+  var drawerBackdrop = document.getElementById('mobile-drawer-backdrop');
+
+  function openDrawer() {
+    drawer.classList.add('open');
+    drawerToggle.setAttribute('aria-expanded', 'true');
+  }
+  function closeDrawer() {
+    drawer.classList.remove('open');
+    drawerToggle.setAttribute('aria-expanded', 'false');
+  }
+  drawerToggle.addEventListener('click', openDrawer);
+  drawerClose.addEventListener('click', closeDrawer);
+  drawerBackdrop.addEventListener('click', closeDrawer);
+  drawer.querySelectorAll('a').forEach(function(a) {
+    a.addEventListener('click', closeDrawer);
+  });
+
+  /* ============================================
+     DATA: FEATURE CATALOG (27 features)
+     ============================================ */
+  var FEATURES = [
+    { name: "General Chatting", cats: ["Personal","Productivity"], difficulty: "Beginner",
+      what: "Have an open-ended conversation with Claude about anything on your mind.",
+      why: "It's the simplest way to get comfortable — there's no wrong way to start.",
+      beginner: "Just type like you're texting a friend. No special format needed.",
+      prompt: "What's a simple way to explain how the stock market works?",
+      use: "A retiree uses casual chats to understand news stories and new terms they come across." },
+    { name: "Writing Assistance", cats: ["Work","Education","Creativity"], difficulty: "Beginner",
+      what: "Get help drafting, improving, or rewriting any piece of text.",
+      why: "Saves time and helps overcome writer's block on everyday writing tasks.",
+      beginner: "Paste in a rough draft and ask Claude to clean it up.",
+      prompt: "Rewrite this paragraph to sound more confident and professional: [paste your text]",
+      use: "A small business owner polishes a customer apology email before sending it." },
+    { name: "Brainstorming Ideas", cats: ["Personal","Work","Creativity"], difficulty: "Beginner",
+      what: "Generate a list of ideas, options, or angles on a topic.",
+      why: "Useful any time you're stuck or want more options than you'd think of alone.",
+      beginner: "Ask for a number of ideas and a short reason for each.",
+      prompt: "Give me 10 birthday gift ideas for a teenager who loves music.",
+      use: "A parent brainstorms gift ideas in minutes instead of scrolling stores for hours." },
+    { name: "Summarization", cats: ["Work","Education","Productivity"], difficulty: "Beginner",
+      what: "Condense a long document, article, or message into key points.",
+      why: "Saves time when you need the gist without reading every word.",
+      beginner: "Paste the text and ask for a short summary in your own words.",
+      prompt: "Summarize this article in 3 bullet points: [paste article text]",
+      use: "A student skims a long news article before class by summarizing it first." },
+    { name: "Research Assistance", cats: ["Work","Education"], difficulty: "Intermediate",
+      what: "Get background, context, and an overview of a topic you're researching.",
+      why: "Helps you understand a new subject quickly before diving deeper.",
+      beginner: "Ask broad questions first, then narrow down with follow-ups.",
+      prompt: "Give me an overview of renewable energy types and their pros and cons.",
+      use: "A homeowner researches solar panel options before calling installers." },
+    { name: "File Analysis", cats: ["Work","Productivity"], difficulty: "Intermediate",
+      what: "Upload a file and ask Claude questions about its contents.",
+      why: "Avoids manually digging through long documents for specific information.",
+      beginner: "Attach the file using the paperclip icon, then ask your question.",
+      prompt: "What are the three biggest risks mentioned in this report?",
+      use: "An employee quickly finds key figures buried in a 40-page report." },
+    { name: "PDF Reading", cats: ["Work","Education","Productivity"], difficulty: "Beginner",
+      what: "Upload a PDF and have Claude read and explain its contents.",
+      why: "PDFs are often dense — Claude can pull out exactly what you need.",
+      beginner: "Upload the PDF, then ask a plain question about what's inside.",
+      prompt: "What does this lease agreement say about late fees?",
+      use: "A renter understands confusing lease terms before signing." },
+    { name: "Spreadsheet Analysis", cats: ["Work","Productivity"], difficulty: "Intermediate",
+      what: "Upload a spreadsheet and ask Claude to find trends or calculate totals.",
+      why: "Skips manual formula-writing for common questions about your data.",
+      beginner: "Upload the file and describe what you want to know in plain English.",
+      prompt: "Which product had the highest sales growth this quarter?",
+      use: "A shop owner reviews monthly sales without touching a single formula." },
+    { name: "Coding Help", cats: ["Work","Education"], difficulty: "Advanced",
+      what: "Get help writing, explaining, or fixing computer code.",
+      why: "Useful even for non-programmers automating small tasks.",
+      beginner: "Describe what you want the code to do in plain English first.",
+      prompt: "Explain what this code does in plain English: [paste code]",
+      use: "A hobbyist fixes a broken spreadsheet formula by describing the error." },
+    { name: "Image Understanding", cats: ["Personal","Work","Education"], difficulty: "Beginner",
+      what: "Upload a photo or image and ask Claude questions about it.",
+      why: "Useful for understanding charts, handwriting, screenshots, or photos.",
+      beginner: "Attach the image, then ask exactly what you want to know.",
+      prompt: "What does this chart show, and what's the main trend?",
+      use: "A caregiver reads a confusing medication label by photographing it." },
+    { name: "Study Assistance", cats: ["Education"], difficulty: "Beginner",
+      what: "Get help understanding textbook material, studying, and reviewing concepts.",
+      why: "Acts like an on-demand tutor that explains things at your pace.",
+      beginner: "Ask Claude to explain a concept like you're learning it for the first time.",
+      prompt: "Explain photosynthesis like I'm 12 years old, with an example.",
+      use: "A student preparing for a biology exam reviews tricky concepts the night before." },
+    { name: "Language Translation", cats: ["Personal","Travel","Education"], difficulty: "Beginner",
+      what: "Translate text or phrases between languages.",
+      why: "Helpful for travel, communication, or understanding foreign text.",
+      beginner: "Paste the text and say which language you want it translated into.",
+      prompt: "Translate this into conversational Spanish: 'Where is the nearest pharmacy?'",
+      use: "A traveler prepares useful phrases before a trip abroad." },
+    { name: "Email Drafting", cats: ["Work","Productivity"], difficulty: "Beginner",
+      what: "Write a complete email from a short description of what you need to say.",
+      why: "Turns a 2-minute thought into a polished, ready-to-send message.",
+      beginner: "Describe the situation and the tone you want, then let Claude draft it.",
+      prompt: "Write a polite email asking my landlord to fix a leaking faucet.",
+      use: "A tenant sends a clear, professional repair request in under a minute." },
+    { name: "Resume Creation", cats: ["Work"], difficulty: "Intermediate",
+      what: "Build or improve a resume tailored to a specific job.",
+      why: "Helps translate your experience into language hiring managers look for.",
+      beginner: "Paste your current resume and the job description side by side.",
+      prompt: "Improve this resume bullet point to sound more results-focused: [paste bullet]",
+      use: "A career-changer reframes past experience for a new industry." },
+    { name: "Interview Prep", cats: ["Work"], difficulty: "Intermediate",
+      what: "Practice answering interview questions and get feedback.",
+      why: "Builds confidence by rehearsing answers before the real thing.",
+      beginner: "Ask Claude to act as an interviewer for a specific role.",
+      prompt: "Act as an interviewer for a customer service role and ask me 5 questions.",
+      use: "A job seeker rehearses answers to tough questions before a big interview." },
+    { name: "Business Planning", cats: ["Work","Creativity"], difficulty: "Intermediate",
+      what: "Think through a business idea, plan, or strategy step by step.",
+      why: "Acts as a sounding board when you don't have a co-founder to brainstorm with.",
+      beginner: "Describe your idea simply and ask for a basic plan outline.",
+      prompt: "Help me outline a simple business plan for a home bakery.",
+      use: "An aspiring entrepreneur organizes scattered ideas into an actual plan." },
+    { name: "Data Analysis", cats: ["Work","Productivity"], difficulty: "Advanced",
+      what: "Interpret numbers, trends, and patterns in data you provide.",
+      why: "Turns raw numbers into plain-English takeaways.",
+      beginner: "Describe what decision you're trying to make with the data.",
+      prompt: "Based on this data, which marketing channel is performing best?",
+      use: "A marketer decides where to spend next month's ad budget." },
+    { name: "Project Management", cats: ["Work","Productivity"], difficulty: "Intermediate",
+      what: "Break a project into tasks, timelines, and milestones.",
+      why: "Helps you avoid feeling overwhelmed by a big undertaking.",
+      beginner: "Describe the end goal and let Claude suggest the steps.",
+      prompt: "Break down 'launch a podcast' into a 6-week task plan.",
+      use: "A side-hustler turns a vague goal into a week-by-week checklist." },
+    { name: "Document Editing", cats: ["Work","Education","Productivity"], difficulty: "Beginner",
+      what: "Proofread, restructure, or polish an existing document.",
+      why: "A second pair of eyes that's available any time of day.",
+      beginner: "Paste your draft and ask what could be clearer or tighter.",
+      prompt: "Proofread this for grammar and clarity: [paste text]",
+      use: "A student catches awkward phrasing in an essay before submitting it." },
+    { name: "Creative Writing", cats: ["Creativity","Personal"], difficulty: "Intermediate",
+      what: "Write or co-write stories, poems, scripts, or other creative work.",
+      why: "A collaborator for creative projects, especially when you're stuck.",
+      beginner: "Describe the mood, characters, or theme you're imagining.",
+      prompt: "Write a short, whimsical bedtime story about a lonely lighthouse.",
+      use: "A parent gets a fresh bedtime story when they've run out of ideas." },
+    { name: "Learning New Skills", cats: ["Education","Personal"], difficulty: "Beginner",
+      what: "Get a structured plan for learning something completely new.",
+      why: "Breaks an intimidating skill into a manageable, ordered path.",
+      beginner: "Say what you want to learn and how much time you have per week.",
+      prompt: "Create a 4-week beginner plan for learning to play guitar.",
+      use: "An adult learner finally tackles a hobby they always meant to start." },
+    { name: "Prompt Improvement", cats: ["Productivity","Education"], difficulty: "Intermediate",
+      what: "Ask Claude to improve your own prompt before you send it.",
+      why: "A shortcut for getting better answers without memorizing every technique.",
+      beginner: "Paste a rough question and ask Claude to make it more specific.",
+      prompt: "Improve this prompt so I get a more detailed answer: 'help me eat healthier'",
+      use: "A beginner gets noticeably better answers just by refining the question first." },
+    { name: "Travel Planning", cats: ["Travel","Personal"], difficulty: "Intermediate",
+      what: "Build itineraries, compare destinations, and plan logistics for a trip.",
+      why: "Cuts down hours of scattered research into one organized plan.",
+      beginner: "Mention your destination, dates, budget, and travel style.",
+      prompt: "Build a relaxed 5-day itinerary for a first trip to Lisbon.",
+      use: "A couple plans their honeymoon without juggling a dozen browser tabs." },
+    { name: "Meal Planning", cats: ["Personal","Productivity"], difficulty: "Beginner",
+      what: "Get a week's worth of meal ideas based on your preferences.",
+      why: "Removes the daily 'what's for dinner' decision fatigue.",
+      beginner: "Mention dietary needs, time constraints, and how many people you're feeding.",
+      prompt: "Plan 5 quick dinners for a family of 4, under 30 minutes each.",
+      use: "A busy parent plans the week's dinners in one sitting on Sunday." },
+    { name: "Fitness Planning", cats: ["Personal"], difficulty: "Beginner",
+      what: "Get a general workout plan tailored to your goals and experience level.",
+      why: "A starting point for building a routine — not a replacement for a trainer.",
+      beginner: "Mention your goal, experience level, and available equipment.",
+      prompt: "Create a beginner 3-day-a-week home workout plan with no equipment.",
+      use: "Someone returning to exercise after years off gets a low-intimidation starting plan." },
+    { name: "Financial Organization", cats: ["Personal","Productivity"], difficulty: "Intermediate",
+      what: "Organize budgets, categorize expenses, or understand financial concepts.",
+      why: "Helps make sense of personal finances without needing to be a numbers person.",
+      beginner: "Describe your situation in plain terms and ask for a simple structure.",
+      prompt: "Help me create a simple monthly budget template for a single person.",
+      use: "Someone builds their first real budget after years of guessing." },
+    { name: "Decision Support", cats: ["Personal","Work"], difficulty: "Beginner",
+      what: "Think through a tough decision by weighing pros, cons, and trade-offs.",
+      why: "Helps organize your own thinking rather than telling you what to choose.",
+      beginner: "Describe the decision and the options you're weighing.",
+      prompt: "Help me weigh the pros and cons of renting vs. buying a home right now.",
+      use: "A first-time buyer organizes scattered thoughts into a clear comparison." }
+  ];
+
+  var FEATURE_ICONS = {
+    "General Chatting": '<path d="M21 11.5a8.38 8.38 0 01-.9 3.8 8.5 8.5 0 01-7.6 4.7 8.38 8.38 0 01-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 01-.9-3.8 8.5 8.5 0 014.7-7.6 8.38 8.38 0 013.8-.9h.5a8.48 8.48 0 018 8v.5z"/>',
+    "Writing Assistance": '<path d="M11 4H4a2 2 0 00-2 2v14a2 2 0 002 2h14a2 2 0 002-2v-7"/><path d="M18.5 2.5a2.12 2.12 0 013 3L12 15l-4 1 1-4 9.5-9.5z"/>',
+    "Brainstorming Ideas": '<path d="M9 18h6M10 22h4M12 2a7 7 0 00-4 12.7V17h8v-2.3A7 7 0 0012 2z"/>',
+    "Summarization": '<path d="M4 6h16M4 12h10M4 18h7"/>',
+    "Research Assistance": '<circle cx="11" cy="11" r="7"/><path d="M21 21l-3.5-3.5"/>',
+    "File Analysis": '<path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><path d="M14 2v6h6"/>',
+    "PDF Reading": '<path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><path d="M14 2v6h6M9 13h6M9 17h4"/>',
+    "Spreadsheet Analysis": '<rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18M9 3v18"/>',
+    "Coding Help": '<path d="M16 18l6-6-6-6M8 6l-6 6 6 6"/>',
+    "Image Understanding": '<rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="M21 15l-5-5L5 21"/>',
+    "Study Assistance": '<path d="M22 10v6M2 10l10-5 10 5-10 5-10-5z"/><path d="M6 12v5c3 3 9 3 12 0v-5"/>',
+    "Language Translation": '<path d="M5 8l6 6M4 14l6-6 2-3M2 5h12M7 2h1M22 22l-5-10-5 10M14 18h6"/>',
+    "Email Drafting": '<rect x="2" y="4" width="20" height="16" rx="2"/><path d="M2 6l10 7 10-7"/>',
+    "Resume Creation": '<path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><path d="M14 2v6h6M9 13h6M9 17h3"/>',
+    "Interview Prep": '<path d="M21 11.5a8.38 8.38 0 01-.9 3.8 8.5 8.5 0 01-7.6 4.7 8.38 8.38 0 01-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 01-.9-3.8 8.5 8.5 0 014.7-7.6 8.38 8.38 0 013.8-.9h.5a8.48 8.48 0 018 8v.5z"/>',
+    "Business Planning": '<path d="M3 3v18h18M18.4 9l-5.6 5.6-3-3L4 17.4"/>',
+    "Data Analysis": '<path d="M3 3v18h18M7 16l4-4 3 3 5-6"/>',
+    "Project Management": '<rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/>',
+    "Document Editing": '<path d="M11 4H4a2 2 0 00-2 2v14a2 2 0 002 2h14a2 2 0 002-2v-7"/><path d="M18.5 2.5a2.12 2.12 0 013 3L12 15l-4 1 1-4 9.5-9.5z"/>',
+    "Creative Writing": '<path d="M12 19l7-7 3 3-7 7-3-3z"/><path d="M18 13l-1.5-7.5L2 2l3.5 14.5L13 18l5-5z"/>',
+    "Learning New Skills": '<path d="M22 10v6M2 10l10-5 10 5-10 5-10-5z"/><path d="M6 12v5c3 3 9 3 12 0v-5"/>',
+    "Prompt Improvement": '<path d="M12 2l2.5 6.5L21 11l-6.5 2.5L12 20l-2.5-6.5L3 11l6.5-2.5L12 2z"/>',
+    "Travel Planning": '<path d="M21 16V8a2 2 0 00-1-1.73l-7-4a2 2 0 00-2 0l-7 4A2 2 0 003 8v8a2 2 0 001 1.73l7 4a2 2 0 002 0l7-4A2 2 0 0021 16z"/><path d="M3.27 6.96L12 12.01l8.73-5.05M12 22.08V12"/>',
+    "Meal Planning": '<path d="M3 2v7c0 1.1.9 2 2 2h2a2 2 0 002-2V2M7 2v20M21 15V2a5 5 0 00-5 5v6c0 1.1.9 2 2 2h3zm0 0v7"/>',
+    "Fitness Planning": '<path d="M6.5 6.5h11M6.5 17.5h11M4 9.5v5M20 9.5v5M2 12h2M20 12h2M9 6.5v11M15 6.5v11"/>',
+    "Financial Organization": '<circle cx="12" cy="12" r="10"/><path d="M12 6v12M9 9h3.5a2.5 2.5 0 010 5H8m1 0h3.5a2.5 2.5 0 010 5"/>',
+    "Decision Support": '<path d="M9 18h6M10 22h4M12 2a7 7 0 00-4 12.7V17h8v-2.3A7 7 0 0012 2z"/>'
+  };
+
+  var featureGrid = document.getElementById('feature-grid');
+  var featureCount = document.getElementById('feature-count');
+  var activeFilter = 'all';
+  var activeSearchTerm = '';
+
+  function difficultyClass(d) {
+    return d === 'Beginner' ? 'badge-beginner' : d === 'Intermediate' ? 'badge-intermediate' : 'badge-advanced';
+  }
+
+  function renderFeatures() {
+    var matches = FEATURES.filter(function(f) {
+      var inFilter = activeFilter === 'all' || f.cats.indexOf(activeFilter) !== -1;
+      var inSearch = !activeSearchTerm || f.name.toLowerCase().indexOf(activeSearchTerm) !== -1 || f.what.toLowerCase().indexOf(activeSearchTerm) !== -1;
+      return inFilter && inSearch;
+    });
+    featureCount.textContent = matches.length + (matches.length === 1 ? ' feature' : ' features') + ' shown';
+    if (matches.length === 0) {
+      featureGrid.innerHTML = '<div class="no-results">No features match that search. Try a different word, or clear the filter.</div>';
+      return;
+    }
+    featureGrid.innerHTML = matches.map(function(f, i) {
+      var icon = FEATURE_ICONS[f.name] || '<circle cx="12" cy="12" r="9"/>';
+      var id = 'feat-' + f.name.replace(/[^a-z0-9]/gi, '-').toLowerCase();
+      return '' +
+      '<div class="feature-card" id="'+ id +'" data-feature-card>' +
+        '<div class="feature-card-top">' +
+          '<div class="feature-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true">'+ icon +'</svg></div>' +
+          '<span class="badge ' + difficultyClass(f.difficulty) + '">' + f.difficulty + '</span>' +
+        '</div>' +
+        '<h4>' + f.name + '</h4>' +
+        '<p class="what-it-does">' + f.what + '</p>' +
+        '<div class="tags">' + f.cats.map(function(c){ return '<span class="tag-chip">' + c + '</span>'; }).join('') + '</div>' +
+        '<button class="feature-toggle" type="button" aria-expanded="false">' +
+          'See example &amp; use case' +
+          '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg>' +
+        '</button>' +
+        '<dl class="feature-detail">' +
+          '<dt>Why it&rsquo;s useful</dt><dd>' + f.why + '</dd>' +
+          '<dt>In beginner terms</dt><dd>' + f.beginner + '</dd>' +
+          '<dt>Example prompt</dt>' +
+          '<dd><div class="prompt-block good" style="margin-top:6px;">' + f.prompt +
+            '<button class="copy-btn" data-copy="' + f.prompt.replace(/"/g,'&quot;') + '" aria-label="Copy this prompt">' +
+              '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"/></svg>' +
+            '</button>' +
+          '</div></dd>' +
+          '<dt>Real-world use case</dt><dd>' + f.use + '</dd>' +
+        '</dl>' +
+      '</div>';
+    }).join('');
+    attachCardToggles();
+    attachCopyButtons(featureGrid);
+  }
+
+  function attachCardToggles() {
+    document.querySelectorAll('.feature-toggle').forEach(function(btn) {
+      btn.addEventListener('click', function() {
+        var card = btn.closest('.feature-card');
+        var expanded = card.classList.toggle('expanded');
+        btn.setAttribute('aria-expanded', expanded ? 'true' : 'false');
+      });
+    });
+  }
+
+  document.getElementById('feature-filters').addEventListener('click', function(e) {
+    var chip = e.target.closest('.filter-chip');
+    if (!chip) return;
+    document.querySelectorAll('#feature-filters .filter-chip').forEach(function(c){ c.classList.remove('active'); });
+    chip.classList.add('active');
+    activeFilter = chip.getAttribute('data-filter');
+    renderFeatures();
+  });
+
+  renderFeatures();
+
+  /* ============================================
+     COPY TO CLIPBOARD (delegated, reusable)
+     ============================================ */
+  function attachCopyButtons(container) {
+    container.querySelectorAll('.copy-btn').forEach(function(btn) {
+      if (btn.dataset.bound) return;
+      btn.dataset.bound = '1';
+      btn.addEventListener('click', function() {
+        var text = btn.getAttribute('data-copy');
+        var done = function() {
+          var original = btn.innerHTML;
+          btn.classList.add('copied');
+          btn.innerHTML = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M20 6L9 17l-5-5"/></svg>';
+          setTimeout(function() {
+            btn.classList.remove('copied');
+            btn.innerHTML = original;
+          }, 1500);
+        };
+        if (navigator.clipboard && navigator.clipboard.writeText) {
+          navigator.clipboard.writeText(text).then(done).catch(function() { fallbackCopy(text, done); });
+        } else {
+          fallbackCopy(text, done);
+        }
+      });
+    });
+  }
+  function fallbackCopy(text, cb) {
+    var ta = document.createElement('textarea');
+    ta.value = text;
+    ta.style.position = 'fixed';
+    ta.style.opacity = '0';
+    document.body.appendChild(ta);
+    ta.select();
+    try { document.execCommand('copy'); } catch(e) {}
+    document.body.removeChild(ta);
+    cb();
+  }
+  // Bind copy buttons already present in static markup
+  attachCopyButtons(document.body);
+
+  /* ============================================
+     DATA: REAL-WORLD SCENARIOS (Section 4)
+     ============================================ */
+  var SCENARIOS = {
+    "Students": ["Summarizing textbook chapters before an exam", "Creating study guides from class notes", "Practicing for exams with sample questions", "Explaining a confusing concept a different way", "Checking grammar on an essay draft", "Building a study schedule before finals", "Translating foreign-language reading assignments", "Turning lecture notes into flashcards", "Outlining a research paper before writing it"],
+    "Professionals": ["Writing and polishing emails", "Turning meeting notes into clear action items", "Drafting reports and summaries", "Preparing talking points before a presentation", "Responding to difficult client messages professionally", "Organizing a messy to-do list into priorities", "Practicing answers for a performance review", "Writing job descriptions for open roles", "Summarizing a long thread before replying"],
+    "Military Transition": ["Converting military experience into civilian resume language", "Translating job titles and acronyms for civilian recruiters", "Practicing answers for civilian job interviews", "Planning a step-by-step post-service career timeline", "Identifying transferable skills for a new industry", "Drafting a LinkedIn summary after separation", "Researching civilian certifications that match military training", "Preparing a budget for the transition period"],
+    "Parents": ["Planning a family vacation everyone will enjoy", "Getting help explaining homework concepts to kids", "Planning a week of family-friendly dinners", "Writing a thoughtful note for a teacher", "Brainstorming screen-free activity ideas", "Organizing a birthday party checklist", "Explaining a tricky topic to a child in age-appropriate language", "Drafting a polite email to a school administrator", "Planning a road trip with kid-friendly stops"],
+    "Entrepreneurs": ["Outlining a basic business plan", "Brainstorming marketing angles for a new product", "Drafting customer service email templates", "Naming a new business or product", "Writing a simple pitch summary", "Organizing startup costs into a basic budget", "Drafting social posts to announce a launch", "Comparing two pricing strategies before deciding"],
+    "Travelers": ["Building a day-by-day trip itinerary", "Making a packing list for a specific climate", "Researching local customs and etiquette before a trip", "Comparing flight options side by side", "Planning a budget for a multi-day trip", "Translating key travel phrases", "Finding kid-friendly activities for a family trip", "Putting together a list of backup plans for bad weather"]
+  };
+  var SCENARIO_ICONS = {
+    "Students": '<path d="M22 10v6M2 10l10-5 10 5-10 5-10-5z"/><path d="M6 12v5c3 3 9 3 12 0v-5"/>',
+    "Professionals": '<rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 21V5a2 2 0 00-2-2h-4a2 2 0 00-2 2v16"/>',
+    "Military Transition": '<path d="M12 2l8 4v6c0 5-3.5 8.5-8 10-4.5-1.5-8-5-8-10V6l8-4z"/>',
+    "Parents": '<circle cx="9" cy="7" r="4"/><path d="M2 21v-2a4 4 0 014-4h6a4 4 0 014 4v2"/><circle cx="18" cy="9" r="3"/>',
+    "Entrepreneurs": '<path d="M3 3v18h18M18.4 9l-5.6 5.6-3-3L4 17.4"/>',
+    "Travelers": '<path d="M21 16V8a2 2 0 00-1-1.73l-7-4a2 2 0 00-2 0l-7 4A2 2 0 003 8v8a2 2 0 001 1.73l7 4a2 2 0 002 0l7-4A2 2 0 0021 16z"/>'
+  };
+
+  var scenarioContainer = document.getElementById('scenario-container');
+  scenarioContainer.innerHTML = Object.keys(SCENARIOS).map(function(group) {
+    var icon = SCENARIO_ICONS[group];
+    var items = SCENARIOS[group].map(function(item) {
+      return '<div class="scenario-card"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 01-2 2H5a2 2 0 01-2-2V5a2 2 0 012-2h11"/></svg>' + item + '</div>';
+    }).join('');
+    return '<h3 class="scenario-group-title"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" style="color:var(--accent)" aria-hidden="true">' + icon + '</svg>' + group + '</h3>' +
+           '<div class="grid grid-2">' + items + '</div>';
+  }).join('');
+
+  /* ============================================
+     DATA: 30 PROMPT TEMPLATES (Section 5)
+     ============================================ */
+  var TEMPLATES = [
+    "Act as a [role] and help me [task]. Here's some context: [details]. Format the answer as [format].",
+    "Explain [topic] to me like I'm a complete beginner, with one real-world example.",
+    "I need to write a [type of message] about [situation]. Keep the tone [tone].",
+    "Summarize this in 3 bullet points: [paste text]",
+    "Give me 10 ideas for [goal], ranked from easiest to hardest to do.",
+    "Act as a career coach. Review this resume and suggest 3 specific improvements: [paste resume]",
+    "Create a 7-day beginner plan for learning [skill].",
+    "Compare [option A] and [option B] in a simple table.",
+    "Turn this into a step-by-step checklist: [paste text]",
+    "What questions should I ask before [decision]?",
+    "Rewrite this to sound more [casual/professional/confident]: [paste text]",
+    "Explain the pros and cons of [topic] in plain language.",
+    "Act as a travel agent. Plan a [number]-day trip to [destination] for [budget].",
+    "Help me prepare for a difficult conversation about [topic].",
+    "What's a simple way to budget for [goal]?",
+    "Proofread this for grammar and clarity: [paste text]",
+    "Give me 5 follow-up questions I should ask my doctor about [topic], to bring up at my next appointment.",
+    "Create a packing list for a trip to [destination] in [season].",
+    "Act as an interviewer for a [job title] role and ask me 5 practice questions.",
+    "Explain the difference between [term A] and [term B].",
+    "Draft a polite email asking for [request].",
+    "Help me brainstorm names for [project/business/product].",
+    "Break down the goal '[big goal]' into smaller weekly steps.",
+    "What are common mistakes beginners make with [topic]?",
+    "Create a simple meal plan for [number] days, considering [dietary need].",
+    "Explain how [process] works, step by step.",
+    "Help me write a thank-you note to [person] for [reason].",
+    "What's the difference between renting and buying a [item], in simple terms?",
+    "Give me 5 conversation starters for [situation].",
+    "Act as a tutor. Quiz me on [topic] with 5 questions, one at a time."
+  ];
+  var templateGrid = document.getElementById('template-grid');
+  templateGrid.innerHTML = TEMPLATES.map(function(t, i) {
+    return '<div class="prompt-block good" style="margin:0;">' +
+      '<span class="prompt-label good-label">Template ' + (i+1) + '</span>' + t +
+      '<button class="copy-btn" data-copy="' + t.replace(/"/g,'&quot;') + '" aria-label="Copy this prompt">' +
+        '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"/></svg>' +
+      '</button>' +
+    '</div>';
+  }).join('');
+  attachCopyButtons(templateGrid);
+
+  /* ============================================
+     DATA: TRAVEL PROMPTS (Section 6)
+     ============================================ */
+  var TRAVEL_PROMPTS = [
+    "Build a 10-day Japan itinerary under $3,000.",
+    "Create a family itinerary for Italy with kids ages 5 and 8.",
+    "Optimize my flights between Paris, Rome, and Athens.",
+    "Compare these three airline options based on total cost and convenience: [paste options]",
+    "Create a packing list for Iceland in October.",
+    "Suggest nearby alternate airports that might be cheaper to fly into for [destination].",
+    "Build a budget breakdown for a 2-week backpacking trip through Southeast Asia.",
+    "What should I know about [country]'s customs and etiquette before I visit?"
+  ];
+  var travelGrid = document.getElementById('travel-prompt-grid');
+  travelGrid.innerHTML = TRAVEL_PROMPTS.map(function(t) {
+    return '<div class="prompt-block good" style="margin:0;">' + t +
+      '<button class="copy-btn" data-copy="' + t.replace(/"/g,'&quot;') + '" aria-label="Copy this prompt">' +
+        '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"/></svg>' +
+      '</button>' +
+    '</div>';
+  }).join('');
+  attachCopyButtons(travelGrid);
+
+  /* ============================================
+     DATA: 50 CONTENT PROMPTS (Section 7), filterable
+     ============================================ */
+  var CONTENT_PROMPTS = [
+    { cat: "Writing", text: "Write a 600-word blog post about [topic] for beginners." },
+    { cat: "Writing", text: "Draft a weekly newsletter intro about [topic] in a friendly tone." },
+    { cat: "Writing", text: "Write an article outline about [topic] with 5 sections." },
+    { cat: "Writing", text: "Turn these bullet points into a flowing paragraph: [paste notes]" },
+    { cat: "Writing", text: "Write an opening paragraph that hooks the reader for an article about [topic]." },
+    { cat: "Writing", text: "Suggest 5 headline options for an article about [topic]." },
+    { cat: "Writing", text: "Write a short author bio for a blog about [topic]." },
+    { cat: "Writing", text: "Edit this draft to be more concise without losing meaning: [paste draft]" },
+    { cat: "Writing", text: "Write a how-to guide for [task], aimed at total beginners." },
+    { cat: "Writing", text: "Write a compelling conclusion for this article: [paste article]" },
+    { cat: "Writing", text: "Write a book review summary for [book title], without spoilers." },
+    { cat: "Writing", text: "Create an FAQ section for an article about [topic]." },
+    { cat: "Writing", text: "Write a press release announcing [event/product]." },
+    { cat: "Writing", text: "Rewrite this in a more storytelling style: [paste text]" },
+    { cat: "Writing", text: "Write a newsletter subject line that gets people to open the email about [topic]." },
+    { cat: "Writing", text: "Draft an 'About Us' page for a small business that does [description]." },
+    { cat: "Social", text: "Write 5 Instagram captions for a photo of [description]." },
+    { cat: "Social", text: "Write a LinkedIn post announcing [achievement/news]." },
+    { cat: "Social", text: "Turn this blog post into a 5-tweet thread: [paste post]" },
+    { cat: "Social", text: "Write a TikTok script under 60 seconds about [topic]." },
+    { cat: "Social", text: "Write a YouTube video script outline about [topic], 5 minutes long." },
+    { cat: "Social", text: "Suggest 10 relevant hashtags for a post about [topic]." },
+    { cat: "Social", text: "Write a carousel post (5 slides) explaining [topic] simply." },
+    { cat: "Social", text: "Write a witty caption for a before/after photo of [description]." },
+    { cat: "Social", text: "Draft a LinkedIn comment responding thoughtfully to this post: [paste post]" },
+    { cat: "Social", text: "Write a poll question and 4 answer options about [topic] for social media." },
+    { cat: "Social", text: "Write a YouTube video description with a call-to-action for [video topic]." },
+    { cat: "Social", text: "Suggest 5 content ideas for a week of posts about [niche]." },
+    { cat: "Social", text: "Write an Instagram bio for a [type of business] account." },
+    { cat: "Social", text: "Turn this customer testimonial into a quote graphic caption: [paste testimonial]" },
+    { cat: "Social", text: "Write a Twitter/X reply that adds value to this conversation: [paste tweet]" },
+    { cat: "Business", text: "Write a sales email for [product], focused on the main benefit." },
+    { cat: "Business", text: "Write 3 versions of ad copy for [product], each with a different angle." },
+    { cat: "Business", text: "Draft a follow-up email to a customer who hasn't responded in a week." },
+    { cat: "Business", text: "Write a welcome email for new subscribers to [newsletter/product]." },
+    { cat: "Business", text: "Write a product description for [product] that highlights its top 3 features." },
+    { cat: "Business", text: "Draft an apology email for a shipping delay on [order]." },
+    { cat: "Business", text: "Write a cold outreach email introducing [business] to a potential partner." },
+    { cat: "Business", text: "Write 5 subject lines for a promotional email about [sale/event]." },
+    { cat: "Business", text: "Draft a thank-you email to send after a customer's first purchase." },
+    { cat: "Business", text: "Write a one-paragraph elevator pitch for [business idea]." },
+    { cat: "Business", text: "Create talking points for a 5-minute pitch about [product/idea]." },
+    { cat: "Business", text: "Write an FAQ for a product page about [product]." },
+    { cat: "Business", text: "Draft a renewal reminder email for a subscription about to expire." },
+    { cat: "Business", text: "Write a case study outline showing how [product] helped a customer." },
+    { cat: "Business", text: "Write an internal announcement about [company news], in a warm but clear tone." },
+    { cat: "Business", text: "Draft a request for a testimonial from a happy customer." },
+    { cat: "Business", text: "Write a holiday promotion email for [product/service]." },
+    { cat: "Business", text: "Write a brief comparing [product] to a competitor, focused on value." },
+    { cat: "Business", text: "Draft a survey invitation email asking customers for feedback on [product]." }
+  ];
+  var contentGrid = document.getElementById('content-prompt-grid');
+  var activeContentFilter = 'all';
+  function renderContentPrompts() {
+    var matches = CONTENT_PROMPTS.filter(function(p) { return activeContentFilter === 'all' || p.cat === activeContentFilter; });
+    contentGrid.innerHTML = matches.map(function(p) {
+      return '<div class="prompt-block good" style="margin:0;">' +
+        '<span class="prompt-label good-label">' + p.cat + '</span>' + p.text +
+        '<button class="copy-btn" data-copy="' + p.text.replace(/"/g,'&quot;') + '" aria-label="Copy this prompt">' +
+          '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"/></svg>' +
+        '</button>' +
+      '</div>';
+    }).join('');
+    attachCopyButtons(contentGrid);
+  }
+  document.getElementById('content-filters').addEventListener('click', function(e) {
+    var chip = e.target.closest('.filter-chip');
+    if (!chip) return;
+    document.querySelectorAll('#content-filters .filter-chip').forEach(function(c){ c.classList.remove('active'); });
+    chip.classList.add('active');
+    activeContentFilter = chip.getAttribute('data-cfilter');
+    renderContentPrompts();
+  });
+  renderContentPrompts();
+
+  /* ============================================
+     DATA: FAQ ACCORDION (Section 9)
+     ============================================ */
+  var FAQS = [
+    { q: "Is it safe to type personal information into Claude?", a: "Avoid sharing highly sensitive details like full Social Security numbers, passwords, or financial account numbers. For everyday context (your job, your goals, general preferences), it's generally fine, but use the same judgment you would with any online service." },
+    { q: "Will Claude always give me the right answer?", a: "No. Claude can occasionally state incorrect information confidently. Treat answers as a well-informed first draft, and verify anything important — especially facts, statistics, or specific numbers — through another source." },
+    { q: "Can Claude replace a doctor, lawyer, or financial advisor?", a: "No. Claude can help you understand general concepts and prepare questions, but it isn't a licensed professional and shouldn't be the final word on medical, legal, or financial decisions." },
+    { q: "Does Claude remember my previous conversations?", a: "Within a single chat, yes — it remembers everything said earlier in that conversation. Whether it remembers details across separate chats depends on your account's memory settings." },
+    { q: "Can I trust content Claude writes for me to be original?", a: "Claude writes original text rather than copying from sources, but it's good practice to review anything you plan to publish or submit, both for accuracy and to make sure it truly reflects your voice." },
+    { q: "What happens if I ask Claude something it can't or won't help with?", a: "Claude will typically explain why it can't help with that specific request and, where possible, suggest an alternative way to get at what you actually need." }
+  ];
+  var faqContainer = document.getElementById('faq-accordion');
+  faqContainer.innerHTML = FAQS.map(function(f, i) {
+    return '<div class="accordion-item" data-faq-item>' +
+      '<button class="accordion-trigger" aria-expanded="false" aria-controls="faq-panel-' + i + '">' +
+        '<span>' + f.q + '</span>' +
+        '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg>' +
+      '</button>' +
+      '<div class="accordion-panel" id="faq-panel-' + i + '">' +
+        '<div class="accordion-panel-inner"><p style="margin:0;">' + f.a + '</p></div>' +
+      '</div>' +
+    '</div>';
+  }).join('');
+
+  faqContainer.querySelectorAll('.accordion-trigger').forEach(function(trigger) {
+    trigger.addEventListener('click', function() {
+      var item = trigger.closest('.accordion-item');
+      var panel = item.querySelector('.accordion-panel');
+      var isOpen = item.classList.contains('open');
+      if (isOpen) {
+        item.classList.remove('open');
+        panel.style.maxHeight = '0px';
+        trigger.setAttribute('aria-expanded', 'false');
+      } else {
+        item.classList.add('open');
+        panel.style.maxHeight = panel.scrollHeight + 'px';
+        trigger.setAttribute('aria-expanded', 'true');
+      }
+    });
+  });
+
+  /* ============================================
+     DATA: CHEAT SHEET (Section 10) — 20 prompts
+     ============================================ */
+  var CHEAT_SHEET = [
+    "Explain this like I'm 12.",
+    "Summarize this.",
+    "Create a checklist for this.",
+    "Turn this into a table.",
+    "Act as my career coach.",
+    "Give me 5 ideas for this.",
+    "Make this shorter.",
+    "Make this more casual.",
+    "Make this more professional.",
+    "What am I missing here?",
+    "Explain the pros and cons.",
+    "Turn this into step-by-step instructions.",
+    "Proofread this for me.",
+    "What questions should I be asking?",
+    "Give me a simple analogy for this.",
+    "Act as a beginner-friendly tutor.",
+    "Compare these two options.",
+    "Help me plan this out, step by step.",
+    "What's the simplest way to explain this?",
+    "Ask me questions to help me think this through."
+  ];
+  var cheatGrid = document.getElementById('cheat-grid');
+  cheatGrid.innerHTML = CHEAT_SHEET.map(function(t, i) {
+    return '<div class="cheat-card">' +
+      '<span class="cheat-num">PROMPT ' + (i+1) + '</span>' +
+      '<div class="prompt-block good">' + t +
+        '<button class="copy-btn" data-copy="' + t.replace(/"/g,'&quot;') + '" aria-label="Copy this prompt">' +
+          '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"/></svg>' +
+        '</button>' +
+      '</div>' +
+    '</div>';
+  }).join('');
+  attachCopyButtons(cheatGrid);
+
+  /* ============================================
+     SEARCH BAR (top nav) — searches features
+     ============================================ */
+  var searchInput = document.getElementById('site-search');
+  var searchResults = document.getElementById('search-results');
+
+  function renderSearchResults(term) {
+    if (!term) {
+      searchResults.classList.remove('open');
+      searchResults.innerHTML = '';
+      return;
+    }
+    var lower = term.toLowerCase();
+    var matches = FEATURES.filter(function(f) {
+      return f.name.toLowerCase().indexOf(lower) !== -1 || f.what.toLowerCase().indexOf(lower) !== -1;
+    }).slice(0, 8);
+    if (matches.length === 0) {
+      searchResults.innerHTML = '<div class="search-empty">No features found for "' + term + '"</div>';
+    } else {
+      searchResults.innerHTML = matches.map(function(f) {
+        var id = 'feat-' + f.name.replace(/[^a-z0-9]/gi, '-').toLowerCase();
+        return '<a class="search-result-item" href="#features" data-jump="' + id + '"><strong>' + f.name + '</strong><span>' + f.what + '</span></a>';
+      }).join('');
+    }
+    searchResults.classList.add('open');
+  }
+
+  searchInput.addEventListener('input', function() {
+    activeSearchTerm = this.value.trim().toLowerCase();
+    renderSearchResults(this.value.trim());
+    // Also live-filter the main feature grid if user is near/in that section
+    renderFeatures();
+  });
+
+  searchResults.addEventListener('click', function(e) {
+    var item = e.target.closest('[data-jump]');
+    if (!item) return;
+    e.preventDefault();
+    var targetId = item.getAttribute('data-jump');
+    document.getElementById('features').scrollIntoView({ behavior: 'smooth' });
+    searchResults.classList.remove('open');
+    searchInput.value = '';
+    activeSearchTerm = '';
+    setTimeout(function() {
+      // reset filters so the matched card is guaranteed visible
+      document.querySelectorAll('#feature-filters .filter-chip').forEach(function(c){ c.classList.remove('active'); });
+      document.querySelector('#feature-filters [data-filter="all"]').classList.add('active');
+      activeFilter = 'all';
+      renderFeatures();
+      setTimeout(function() {
+        var target = document.getElementById(targetId);
+        if (target) {
+          target.scrollIntoView({ behavior: 'smooth', block: 'center' });
+          target.classList.add('search-highlight');
+          setTimeout(function() { target.classList.remove('search-highlight'); }, 1600);
+        }
+      }, 150);
+    }, 400);
+  });
+
+  document.addEventListener('click', function(e) {
+    if (!e.target.closest('.search-wrap')) {
+      searchResults.classList.remove('open');
+    }
+  });
+
+  /* ============================================
+     SCROLL SPY: nav highlighting + progress rail
+     ============================================ */
+  var sections = Array.prototype.slice.call(document.querySelectorAll('main .section'));
+  var navLinksDesktop = document.querySelectorAll('#nav-links-desktop a');
+  var progressNav = document.getElementById('progress-nav');
+  var progressFill = document.getElementById('progress-fill');
+  var progressPct = document.getElementById('progress-pct');
+  var mobileProgressFill = document.getElementById('mobile-progress-fill');
+
+  // Build the progress rail items from the same sections
+  progressNav.innerHTML = sections.map(function(s) {
+    var titleEl = s.querySelector('.section-title');
+    var title = titleEl ? titleEl.textContent : s.id;
+    return '<a class="progress-item" href="#' + s.id + '" data-progress-link="' + s.id + '">' + title + '</a>';
+  }).join('');
+  var progressLinks = progressNav.querySelectorAll('.progress-item');
+
+  function updateScrollState() {
+    var scrollY = window.scrollY || window.pageYOffset;
+    var viewportMid = scrollY + window.innerHeight * 0.35;
+
+    // Determine current section
+    var currentId = sections.length ? sections[0].id : null;
+    for (var i = 0; i < sections.length; i++) {
+      if (sections[i].offsetTop <= viewportMid) {
+        currentId = sections[i].id;
+      }
+    }
+
+    navLinksDesktop.forEach(function(a) {
+      a.classList.toggle('active', a.getAttribute('href') === '#' + currentId);
+    });
+    progressLinks.forEach(function(a) {
+      a.classList.toggle('active', a.getAttribute('data-progress-link') === currentId);
+    });
+
+    // Reading progress percentage across the whole document
+    var docHeight = document.documentElement.scrollHeight - window.innerHeight;
+    var pct = docHeight > 0 ? Math.min(100, Math.max(0, (scrollY / docHeight) * 100)) : 0;
+    progressFill.style.width = pct + '%';
+    mobileProgressFill.style.width = pct + '%';
+    progressPct.textContent = Math.round(pct) + '% read';
+  }
+
+  var scrollTicking = false;
+  window.addEventListener('scroll', function() {
+    if (!scrollTicking) {
+      window.requestAnimationFrame(function() {
+        updateScrollState();
+        scrollTicking = false;
+      });
+      scrollTicking = true;
+    }
+  });
+  window.addEventListener('resize', updateScrollState);
+  updateScrollState();
+
+})();
+</script>
+
+</body>
+</html>
